@@ -35,7 +35,7 @@ def extract_movies(dom):
     with open("movies.html", encoding="utf8") as fp:
         soup = BeautifulSoup(fp, "html.parser")
 
-    # find the title
+    # find the title and year
     titles = []
     years = []
     title_finder = soup.find_all('h3')
@@ -49,7 +49,7 @@ def extract_movies(dom):
             continue
         for year in y:
             if year.attrs['class'][0] == "lister-item-year":
-                years.append(year.text)
+                years.append(year.text.strip(' ()I'))
 
     # find the rate
     rates = []
@@ -62,14 +62,17 @@ def extract_movies(dom):
     names = []
     name_finder = soup.find_all('p')
     for p in name_finder:
-        name_find = p.find_all('a')
-        actors = ''
-        for name in name_find:
-            if 'href' in name.attrs and 'adv_li_st_' in name.attrs['href']:
-                actors += name.text
-                actors += ', '
-        if actors != '':
-            names.append(actors)
+        if 'class' in p.attrs and p.attrs['class'][0] == '':
+            name_find = p.find_all('a')
+            actors = ''
+            if not name_find:
+                names.append('')
+            for name in name_find:
+                if 'href' in name.attrs and 'li_st_' in name.attrs['href']:
+                    actors += name.text
+                    actors += ', '
+            if actors != '':
+                names.append(actors)
 
     # find runtime
     runtimes = []
@@ -79,16 +82,11 @@ def extract_movies(dom):
             time = r.text.split()
             runtimes.append(time[0])
 
-    print(len(titles))
-    print(len(years))
-    print(len(rates))
-    print(len(names))
-    print(len(runtimes))
-
     # NAMES HEEFT MAAR 49 ENTRIES WANT 1 FILM ZONDER ACTEURS
 
 
-    return [titles, years, rates, names, runtimes]
+    return [titles, rates, years, names, runtimes]
+    # return []
 
 
 def save_csv(outfile, movies):
