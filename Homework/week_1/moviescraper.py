@@ -27,23 +27,19 @@ def extract_movies(dom):
     - Runtime (only a number!)
     """
 
-    # ADD YOUR CODE HERE TO EXTRACT THE ABOVE INFORMATION ABOUT THE
-    # HIGHEST RATED MOVIES
-    # NOTE: FOR THIS EXERCISE YOU ARE ALLOWED (BUT NOT REQUIRED) TO IGNORE
-    # UNICODE CHARACTERS AND SIMPLY LEAVE THEM OUT OF THE OUTPUT.
-
-    with open("movies.html", encoding="utf8") as fp:
-        soup = BeautifulSoup(fp, "html.parser")
-
     # find the title and year
     titles = []
     years = []
-    title_finder = soup.find_all('h3')
+
+    # titles are listed under the h3 tag
+    title_finder = dom.find_all('h3')
     for t in title_finder:
         a = t.find('a')
         if not a or a.text == ' \n':
             continue
         titles.append(a.text)
+
+        # years are listed under the span tag as "lister-item-year"
         y = t.find_all('span')
         if not y:
             continue
@@ -53,18 +49,24 @@ def extract_movies(dom):
 
     # find the rate
     rates = []
-    rate_finder = soup.find_all('meta')
+
+    # rates are listed under the meta tag as 'ratingValue'
+    rate_finder = dom.find_all('meta')
     for r in rate_finder:
         if 'itemprop' in r.attrs and r.attrs['itemprop'] == 'ratingValue':
             rates.append(r.attrs['content'])
 
     # find names
     names = []
-    name_finder = soup.find_all('p')
+    name_finder = dom.find_all('p')
     for p in name_finder:
+
+        # actors are listed in a paragraph with an empty attribute
         if 'class' in p.attrs and p.attrs['class'][0] == '':
             name_find = p.find_all('a')
             actors = ''
+
+            # if the movie has no actors listed, add an entry anyway
             if not name_find:
                 names.append('')
             for name in name_find:
@@ -76,18 +78,15 @@ def extract_movies(dom):
 
     # find runtime
     runtimes = []
-    run_finder = soup.find_all('span')
+
+    # runtimes are listed under span as 'runtime'
+    run_finder = dom.find_all('span')
     for r in run_finder:
         if 'class' in r.attrs and r.attrs['class'][0] == 'runtime':
             time = r.text.split()
             runtimes.append(time[0])
 
-    # NAMES HEEFT MAAR 49 ENTRIES WANT 1 FILM ZONDER ACTEURS
-
-
     return [titles, rates, years, names, runtimes]
-    # return []
-
 
 def save_csv(outfile, movies):
     """
