@@ -74,7 +74,7 @@ def extract_movies(dom):
                     actors += name.text
                     actors += ', '
             if actors != '':
-                names.append(actors)
+                names.append(actors[:-2])
 
     # find runtime
     runtimes = []
