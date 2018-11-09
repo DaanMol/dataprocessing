@@ -74,9 +74,9 @@ def histo(frame, column):
     for product in frame[column]:
         gdplist.append(product)
     plt.hist(x=gdplist, bins=60)
-    plt.title(f'{column}')
+    plt.title(column)
     plt.xlabel(column)
-    plt.ylabel('Number of countries')
+    plt.ylabel('Frequency')
     plt.show()
 
 
@@ -100,6 +100,8 @@ def boxplot(frame, column):
     print('Median =', median)
     print('75% = ', stats['75%'])
     print('Max = ', stats['max'])
+    plt.title(column)
+    plt.ylabel(column)
     plt.boxplot(values)
     plt.show()
 
