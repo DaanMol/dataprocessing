@@ -15,13 +15,18 @@ import matplotlib.pyplot as plt
 import json as j
 
 INPUT = 'input.csv'
-# the highgest gdp per capita is that of Luxembourg
+# the highgest gdp per capita is that of Luxembourg (Google, 2018)
 GDPMAX = 107708.22
 
 
 def parse(reader):
     """
-    Collects data from a csv file
+    Collects data from a csv file sorted by Country
+        - region
+        - Population Density
+        - infant mortality
+        - gdp
+    Returns a dictionary
     """
 
     # create dictionary to fill with countries and their stats
@@ -63,6 +68,7 @@ def parse(reader):
 def histo(frame, column):
     """
     Plots a histogram for the specified column
+    Prints the stats of the given column
     """
     # print the stats for the GDP per capita
     print(column, 'stats:')
@@ -73,11 +79,13 @@ def histo(frame, column):
     gdplist = []
     for product in frame[column]:
         gdplist.append(product)
+    plt.figure('1')
     plt.hist(x=gdplist, bins=60)
     plt.title(column)
+    plt.ylim(bottom=0)
+    plt.xlim(left=0)
     plt.xlabel(column)
     plt.ylabel('Frequency')
-    plt.show()
 
 
 def boxplot(frame, column):
@@ -100,11 +108,12 @@ def boxplot(frame, column):
     print('Median =', median)
     print('75% = ', stats['75%'])
     print('Max = ', stats['max'])
+    plt.figure('2')
     plt.title(column)
     plt.ylabel(column)
     plt.boxplot(values)
-    plt.show()
-
+    cur_axes = plt.gca()
+    cur_axes.axes.get_xaxis().set_ticks([])
 
 def json(parsed):
     """
@@ -132,3 +141,4 @@ if __name__ == '__main__':
     histo(frame, 'GDP ($ per capita) dollars')
     boxplot(frame, 'Infant mortality (per 1000 births)')
     json(parsed)
+    plt.show()
