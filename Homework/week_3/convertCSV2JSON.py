@@ -30,7 +30,7 @@ def json(parsed):
     Converts a dictionary to a json file
     """
 
-    with open("output.json", "w") as write_file:
+    with open("data.json", "w") as write_file:
         j.dump(parsed, write_file, indent=4)
 
 if __name__ == '__main__':
