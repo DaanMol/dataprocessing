@@ -21,7 +21,8 @@ def parse(reader):
         data = {}
         for i in row:
             data[i] = row[i]
-        all_data[row['Area']] = data
+        if row["Area"] == "England":
+            all_data[row['Area']] = data
 
     return all_data
 
