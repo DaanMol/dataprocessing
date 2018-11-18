@@ -58,9 +58,14 @@
             range = [70, 75]
             creation = createTransform(domain, range)
             console.log(Object.keys(stats["England"]));
+
+            points = [];
             for(var i = 0; i < list.length; ++i) {
-                console.log(creation(i));
+                // console.log(creation(i));
+                points.push(creation(i));
             }
+            console.log(points)
+
         }
     }
     txtFile.open("GET", fileName);
@@ -70,6 +75,10 @@
     ctx.fillStyle = 'rgb(200,0,0)';
     ctx.fillRect(0, 0, 300, 150);
     ctx.fillText('hello world', 310, 10)
+    ctx.moveTo(0, 0);
+    ctx.lineTo(200, 100)
+    ctx.stroke()
+
 
   </script>
 
