@@ -66,9 +66,11 @@ txtFile.onreadystatechange = function() {
         };
 
         // create array for y axis tags in the graph
-        yTags = [71, 72, 73, 74, 75];
+        yTags = [71, 72, 73, 74];
         yTagPix = [];
-        for var
+        for (var i = 0; i < 5; ++i) {
+            yTagPix.push(yCreation(yTags[i]))
+        }
 
         var canvas = document.getElementById('myCanvas');
         var ctx = canvas.getContext('2d');
@@ -82,11 +84,15 @@ txtFile.onreadystatechange = function() {
         var GRAPH_HEIGHT = 300;
         var GRAPH_WIDTH = 600;
 
+        // clear if any has been drawn already
         ctx.clearRect(0, 0, 600, 300)
 
         // draw graph boundaries
         ctx.moveTo( GRAPH_LEFT, GRAPH_BOTTOM );
         ctx.lineTo( GRAPH_RIGHT, GRAPH_BOTTOM );
+        ctx.lineTo( (GRAPH_RIGHT - 5), ( GRAPH_BOTTOM - 5))
+        ctx.lineTo( (GRAPH_RIGHT + 5), ( GRAPH_BOTTOM - 10))
+        ctx.lineTo( GRAPH_RIGHT, ( GRAPH_BOTTOM - 15));
         ctx.lineTo( GRAPH_RIGHT, GRAPH_TOP );
         ctx.stroke();
 
@@ -123,11 +129,12 @@ txtFile.onreadystatechange = function() {
           }
         }
 
-        ctx.moveTo(GRAPH_RIGHT, yPixels[0]);
-        for(var i = 0; i < yPixels.length; ++i) {
-          ctx.lineTo(GRAPH_RIGHT + 5, yPixels[i]);
-          ctx.fillText(values[i+2], (GRAPH_RIGHT + 10), (yPixels[i]));
-          ctx.moveTo(GRAPH_RIGHT, yPixels[i + 1])
+        // draw the y axis tags
+        ctx.moveTo(GRAPH_RIGHT, yTagPix[0]);
+        for(var i = 0; i < yTags.length; ++i) {
+          ctx.lineTo(GRAPH_RIGHT + 5, yTagPix[i]);
+          ctx.fillText(yTags[i], (GRAPH_RIGHT + 10), (yTagPix[i]));
+          ctx.moveTo(GRAPH_RIGHT, yTagPix[i + 1])
         }
 
         ctx.stroke()
