@@ -115,7 +115,7 @@ function drawTags(ctx, xPixels, yPixels, size) {
   if(size === "s") {
     // create array for y axis tags in the graph
     yTags = [71, 72, 73, 74];
-    yTagPix = getPixels([71, 75], [GRAPH_BOTTOM, 0], yTags, "ytag")
+    yTagPix = getPixels([71, 75], [300, 0], yTags, "ytag")
 
     // draw the y axis tags
     for(var i = 0; i < yTags.length; ++i) {
@@ -127,7 +127,7 @@ function drawTags(ctx, xPixels, yPixels, size) {
   }
   else if(size === "l") {
     yTags = [0, 25, 50, 75];
-    yTagPix = getPixels([0, 100], [GRAPH_BOTTOM, 0], yTags, "ytag")
+    yTagPix = getPixels([0, 100], [300, 0], yTags, "ytag")
 
     // draw second y axis
     for(var i = 0; i < yTags.length; ++i) {
@@ -169,9 +169,9 @@ txtFile.onreadystatechange = function() {
         });
 
         xPixels = getPixels([1, 14], [0, 600], list, "x")
-        yPixels = getPixels([71, 75], [GRAPH_BOTTOM, 0], values, "y")
+        yPixels = getPixels([71, 75], [300, 0], values, "y")
         xPixels2 = getPixels([1, 14], [750, 1350], values, "x")
-        yPixels2 = getPixels([0, 100], [GRAPH_BOTTOM, 0], values, "y")
+        yPixels2 = getPixels([0, 100], [300, 0], values, "y")
 
         var canvas = document.getElementById('myCanvas');
         var ctx = canvas.getContext('2d');
