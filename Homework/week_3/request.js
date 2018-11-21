@@ -8,9 +8,9 @@
 var GRAPH_TOP = 25;
 var GRAPH_BOTTOM = 325;
 var GRAPH_LEFT = 25;
-var GRAPH_LEFT_NEW = 750;
+var GRAPH_LEFT_NEW = 775;
 var GRAPH_RIGHT = 625;
-var GRAPH_RIGHT_NEW = 1325;
+var GRAPH_RIGHT_NEW = 1400;
 
 var GRAPH_HEIGHT = 300;
 var GRAPH_WIDTH = 600;
@@ -34,7 +34,7 @@ function createTransform(domain, range){
 
 function getPixels(domain, range, values, axis) {
     creation = createTransform(domain, range)
-
+    console.log(axis, values.length)
     list = []
     if(axis === "x") {
       for(var i = 2; i < values.length; ++i) {
@@ -57,9 +57,6 @@ function getPixels(domain, range, values, axis) {
 
 function drawGraph(ctx) {
 
-  // clear if any has been drawn already
-  ctx.clearRect(0, 0, 600, 300)
-
   // draw graph boundaries
   ctx.moveTo( GRAPH_LEFT, GRAPH_BOTTOM );
   ctx.lineTo( GRAPH_RIGHT, GRAPH_BOTTOM );
@@ -67,9 +64,8 @@ function drawGraph(ctx) {
   ctx.lineTo( (GRAPH_RIGHT + 5), ( GRAPH_BOTTOM - 10))
   ctx.lineTo( GRAPH_RIGHT, ( GRAPH_BOTTOM - 15));
   ctx.lineTo( GRAPH_RIGHT, GRAPH_TOP );
-  ctx.stroke();
 
-  ctx.beginPath();
+  // second graph boundaries
   ctx.moveTo( GRAPH_LEFT_NEW, GRAPH_TOP );
   ctx.lineTo( GRAPH_LEFT_NEW, GRAPH_BOTTOM );
   ctx.lineTo( GRAPH_RIGHT_NEW, GRAPH_BOTTOM);
@@ -86,16 +82,14 @@ function drawData(ctx, xPixels, yPixels) {
   for(var i = 1; i < yPixels.length; ++i) {
     ctx.lineTo(xPixels[i], yPixels[i]);
   }
+  ctx.stroke()
 }
 
-function drawTags(ctx, xPixels, yPixels) {
-
-  // create array for y axis tags in the graph
-  yTags = [71, 72, 73, 74];
-  yTagPix = getPixels([71, 75], [300, 0], yTags, "ytag")
+function drawTags(ctx, xPixels, yPixels, size) {
 
   // draw labels and title
   ctx.fillText( "Quarter", GRAPH_RIGHT / 3, GRAPH_BOTTOM + 50);
+  ctx.fillText( "Quarter", GRAPH_RIGHT / 3 + GRAPH_RIGHT, GRAPH_BOTTOM + 50);
   ctx.fillText( "Employment rate", GRAPH_RIGHT + 30, GRAPH_HEIGHT / 2);
   ctx.fillText( "Employment rate in England", GRAPH_RIGHT / 3, GRAPH_TOP - 10)
 
@@ -118,21 +112,45 @@ function drawTags(ctx, xPixels, yPixels) {
     }
   }
 
-  // draw the y axis tags
-  for(var i = 0; i < yTags.length; ++i) {
-    ctx.moveTo(GRAPH_RIGHT, yTagPix[i]);
-    ctx.lineTo(GRAPH_RIGHT + 5, yTagPix[i]);
-    ctx.fillText(yTags[i], (GRAPH_RIGHT + 10), (yTagPix[i]));
-    ctx.moveTo(GRAPH_RIGHT, yTagPix[i + 1])
+  if(size === "s") {
+    // create array for y axis tags in the graph
+    yTags = [71, 72, 73, 74];
+    yTagPix = getPixels([71, 75], [300, 0], yTags, "ytag")
+
+    // draw the y axis tags
+    for(var i = 0; i < yTags.length; ++i) {
+      ctx.moveTo(GRAPH_RIGHT, yTagPix[i]);
+      ctx.lineTo(GRAPH_RIGHT + 5, yTagPix[i]);
+      ctx.fillText(yTags[i], (GRAPH_RIGHT + 10), (yTagPix[i]));
+      ctx.moveTo(GRAPH_RIGHT, yTagPix[i + 1])
+    }
   }
+  else if(size === "l") {
+    yTags = [0, 25, 50, 75];
+    yTagPix = getPixels([0, 100], [300, 0], yTags, "ytag")
+
+    // draw second y axis
+    for(var i = 0; i < yTags.length; ++i) {
+      ctx.moveTo(GRAPH_LEFT_NEW, yTagPix[i]);
+      ctx.lineTo(GRAPH_LEFT_NEW - 5, yTagPix[i]);
+      ctx.fillText(yTags[i], (GRAPH_LEFT_NEW - 20), (yTagPix[i]));
+      ctx.moveTo(GRAPH_LEFT_NEW, yTagPix[i + 1]);
+    }
+  }
+
   ctx.stroke()
 
   // draw reference lines
   ctx.beginPath();
+  ctx.lineJoin = "round";
   ctx.strokeStyle = "#BBB"
   for(var i = 0; i < yTags.length; ++i) {
-    ctx.moveTo(GRAPH_RIGHT, yTagPix[i])
+    ctx.moveTo(GRAPH_RIGHT, yTagPix[i]);
     ctx.lineTo(GRAPH_LEFT, yTagPix[i]);
+  }
+  for(var i = 0; i < yTags.length; ++i) {
+    ctx.moveTo(GRAPH_LEFT_NEW, yTagPix[i]);
+    ctx.lineTo(GRAPH_RIGHT_NEW, yTagPix[i])
   }
   ctx.stroke()
 }
@@ -150,17 +168,25 @@ txtFile.onreadystatechange = function() {
             values.push(stats['England'][element]);
         });
 
+        console.log("list", list.length)
+
         xPixels = getPixels([1, 14], [0, 600], list, "x")
         yPixels = getPixels([71, 75], [300, 0], values, "y")
+
+        console.log("list", list.length)
+        xPixels2 = getPixels([1, 14], [750, 1350], values, "x")
+        yPixels2 = getPixels([0, 100], [300, 0], values, "y")
+        // console.log(xPixels.length)
+        // console.log(xPixels2.length)
 
         var canvas = document.getElementById('myCanvas');
         var ctx = canvas.getContext('2d');
 
         drawGraph(ctx);
+        drawTags(ctx, xPixels, yPixels, "s");
+        drawTags(ctx, xPixels2, yPixels2, "l")
         drawData(ctx, xPixels, yPixels);
-        drawTags(ctx, xPixels, yPixels);
-
-        // ctx.stroke()
+        drawData(ctx, xPixels2, yPixels2)
     }
 }
 txtFile.open("GET", fileName);
