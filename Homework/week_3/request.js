@@ -1,5 +1,8 @@
-// Daan Molleman
-// 11275820
+/*
+ * Daan Molleman
+ * 11275820
+ * Javascript line graph
+*/
 
 // define graph boundaries
 var GRAPH_TOP = 25;
@@ -106,7 +109,7 @@ function drawTags(ctx, xPixels, yPixels) {
   ctx.stroke()
 }
 
-// async function getstats() {
+
 var fileName = "data.json";
 var txtFile = new XMLHttpRequest();
 txtFile.onreadystatechange = function() {
@@ -118,6 +121,7 @@ txtFile.onreadystatechange = function() {
         list.forEach(function(element) {
             values.push(stats['England'][element]);
         });
+        console.log(values)
 
         // create domain and range for x axis
         domain = [1, 14]
