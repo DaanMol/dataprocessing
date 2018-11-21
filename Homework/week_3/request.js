@@ -8,7 +8,9 @@
 var GRAPH_TOP = 25;
 var GRAPH_BOTTOM = 325;
 var GRAPH_LEFT = 25;
+var GRAPH_LEFT_NEW = 750;
 var GRAPH_RIGHT = 625;
+var GRAPH_RIGHT_NEW = 1325;
 
 var GRAPH_HEIGHT = 300;
 var GRAPH_WIDTH = 600;
@@ -30,6 +32,29 @@ function createTransform(domain, range){
     }
 }
 
+function getPixels(domain, range, values, axis) {
+    creation = createTransform(domain, range)
+
+    list = []
+    if(axis === "x") {
+      for(var i = 2; i < values.length; ++i) {
+        list.push(creation(i))
+      }
+    }
+    else if(axis === "y") {
+      for(var i = 2; i < values.length; ++i) {
+        list.push(creation(values[i]))
+      }
+    }
+    else if(axis === "ytag") {
+      for (var i = 0; i < values.length; ++i) {
+        list.push(creation(values[i]))
+      }
+    }
+
+    return list
+}
+
 function drawGraph(ctx) {
 
   // clear if any has been drawn already
@@ -43,6 +68,12 @@ function drawGraph(ctx) {
   ctx.lineTo( GRAPH_RIGHT, ( GRAPH_BOTTOM - 15));
   ctx.lineTo( GRAPH_RIGHT, GRAPH_TOP );
   ctx.stroke();
+
+  ctx.beginPath();
+  ctx.moveTo( GRAPH_LEFT_NEW, GRAPH_TOP );
+  ctx.lineTo( GRAPH_LEFT_NEW, GRAPH_BOTTOM );
+  ctx.lineTo( GRAPH_RIGHT_NEW, GRAPH_BOTTOM);
+  ctx.stroke()
 }
 
 function drawData(ctx, xPixels, yPixels) {
@@ -61,10 +92,7 @@ function drawTags(ctx, xPixels, yPixels) {
 
   // create array for y axis tags in the graph
   yTags = [71, 72, 73, 74];
-  yTagPix = [];
-  for (var i = 0; i < 5; ++i) {
-      yTagPix.push(yCreation(yTags[i]))
-  }
+  yTagPix = getPixels([71, 75], [300, 0], yTags, "ytag")
 
   // draw labels and title
   ctx.fillText( "Quarter", GRAPH_RIGHT / 3, GRAPH_BOTTOM + 50);
@@ -121,26 +149,9 @@ txtFile.onreadystatechange = function() {
         list.forEach(function(element) {
             values.push(stats['England'][element]);
         });
-        console.log(values)
 
-        // create domain and range for x axis
-        domain = [1, 14]
-        range = [0, 600]
-        xCreation = createTransform(domain, range)
-
-        xPixels = [];
-        for(var i = 2; i < list.length; ++i) {
-            xPixels.push(xCreation(i));
-        };
-
-        // create new range for y axis and new function
-        domain = [71, 75]
-        range = [300, 0]
-        yCreation = createTransform(domain, range)
-        yPixels = [];
-        for(var i = 2; i < list.length; ++i) {
-            yPixels.push(yCreation(values[i]));
-        };
+        xPixels = getPixels([1, 14], [0, 600], list, "x")
+        yPixels = getPixels([71, 75], [300, 0], values, "y")
 
         var canvas = document.getElementById('myCanvas');
         var ctx = canvas.getContext('2d');
