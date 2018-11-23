@@ -10,19 +10,28 @@
       // d3.select("body").append("p").text("future bar chart")
       // d3.select("body").append("p").text("Daan Molleman - 11275820")
       // d3.select("body").append("p").text("i have no idea what the dataset is about")
-      var dataset = [ 5, 10, 15, 20, 25 ];
-      d3.select("body").selectAll("p")
-          .data(dataset)
-          .enter()
-          .append("p")
-          .text(function(d) { return d; })
-          .style("color", function(d) {
-            if (d > 15) {
-              return "red";
-            } else {
-              return "blue";
-            }
-          });
+
+      d3.json("data.json").then(function(data) {
+        // console.log(data);
+        for (i in data) {
+            // console.log(data[i]['Value'])
+            d3.select('body').selectAll('p')
+                .data(data)
+                .enter()
+                .append('p')
+                .text(function(d) {
+                    console.log(d)
+                    return d;
+                })
+        };
+      })
+
+      // d3.select("body").selectAll("p")
+      //     .data(dataset)
+      //     .enter()
+      //     .append("p")
+      //     .text(function(d) { return d; })
+      //     });
     </script>
   </body>
 </html>
