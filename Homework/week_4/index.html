@@ -12,18 +12,36 @@
       // d3.select("body").append("p").text("i have no idea what the dataset is about")
 
       d3.json("data.json").then(function(data) {
-        // console.log(data);
-        for (i in data) {
-            // console.log(data[i]['Value'])
-            d3.select('body').selectAll('p')
-                .data(data)
-                .enter()
-                .append('p')
-                .text(function(d) {
-                    console.log(d)
-                    return d;
-                })
-        };
+        // data.forEach(function(element) {
+        console.log(data[0])
+        keys = Object.keys(data[0])
+        console.log(keys)
+
+        values = Object.values(data[0])
+        console.log(values)
+
+        total = []
+
+        for (var i = 0; i < keys.length; ++i) {
+            total.push(keys[i]);
+            total.push(values[i]);
+        }
+
+        // stats = []
+        // keys.forEach(function(country) {
+        //     console.log(element[country]);
+        //     stats.append(element[country]);
+        //     console.log(stats);
+        // })
+
+        d3.select('body').selectAll('p')
+            .data(total)
+            .enter()
+            .append('p')
+            .text(function(d) {
+                return d;
+            })
+        // });
       })
 
       // d3.select("body").selectAll("p")

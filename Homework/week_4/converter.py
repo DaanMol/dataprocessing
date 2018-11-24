@@ -3,6 +3,9 @@
 
 """
 This script converts a csv file to a JSON file
+KTOE = kilo tonne oil equivalent
+PRYENG = primary energy growth
+Total over period 1960 - 2016
 """
 
 import json as j
@@ -14,21 +17,32 @@ def parse(reader):
     """
     parses a csv file into a dict
     """
-    all_data = {}
+    KTOE = {}
+    PRYENG = {}
     countries = []
+    prev_country = None
     for row in reader:
-        data = {}
-        for i in row:
-            data[i] = row[i]
-        all_data[row['LOCATION']] = data
+        print(row["MEASURE"])
+        data = row["Value"]
+        if data == "":
+            continue
+        if row["MEASURE"] == "KTOE":
+            data = row["Value"]
+            if data == "":
+                continue
+            if row["LOCATION"] is not prev_country:
+                KTOE[row['LOCATION']] = float(data)
+                prev_country = row["LOCATION"]
+            else:
+                KTOE[row['LOCATION']] += float(data)
+        elif row["MEASURE"] == "PC_PRYENRGSUPPLY":
+            if row["LOCATION"] is not prev_country:
+                PRYENG[row['LOCATION']] = float(data)
+                prev_country = row["LOCATION"]
+            else:
+                PRYENG[row['LOCATION']] += float(data)
 
-    # countries.append(row['LOCATION'])
-    # data[row['LOCATION']] = row['Value']
-    # cset = set(countries)
-
-    print(all_data)
-
-    return all_data
+    return [KTOE, PRYENG]
 
 def json(parsed):
     """
