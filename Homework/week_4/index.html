@@ -6,20 +6,14 @@
   </head>
   <body>
     <script type="text/javascript">
-      // d3.select("head").append("title").text("future bar chart")
-      // d3.select("body").append("p").text("future bar chart")
-      // d3.select("body").append("p").text("Daan Molleman - 11275820")
-      // d3.select("body").append("p").text("i have no idea what the dataset is about")
+      d3.select("head").append("title").text("future bar chart")
+      d3.select("body").append("b").text("future bar chart. ")
+      d3.select("body").append("b").text("Daan Molleman - 11275820. ")
+      d3.select("body").append("b").text("i have no idea what the dataset is about ")
 
       d3.json("data.json").then(function(data) {
-        // data.forEach(function(element) {
-        console.log(data[0])
         keys = Object.keys(data[0])
-        console.log(keys)
-
         values = Object.values(data[0])
-        console.log(values)
-
         total = []
 
         for (var i = 0; i < keys.length; ++i) {
@@ -41,7 +35,13 @@
             .text(function(d) {
                 return d;
             })
-        // });
+            .style("color", function(d) {
+                if (typeof(d) === "string") {
+                    return "red";
+                } else {
+                    return "blue";
+                }
+            });
       })
 
       // d3.select("body").selectAll("p")
