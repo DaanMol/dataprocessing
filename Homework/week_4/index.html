@@ -2,54 +2,53 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <link rel='stylesheet' type="text/css" href="style.css">
     <script type="text/javascript" src="d3/d3.js"></script>
   </head>
   <body>
+    <!-- <div class='bar'></div> -->
     <script type="text/javascript">
       d3.select("head").append("title").text("future bar chart")
       d3.select("body").append("b").text("future bar chart. ")
       d3.select("body").append("b").text("Daan Molleman - 11275820. ")
-      d3.select("body").append("b").text("i have no idea what the dataset is about ")
 
       d3.json("data.json").then(function(data) {
         keys = Object.keys(data[0])
         values = Object.values(data[0])
+        values.splice(-1,1)
         total = []
 
         for (var i = 0; i < keys.length; ++i) {
             total.push(keys[i]);
             total.push(values[i]);
         }
+        // d3.select('body').selectAll('p')
+        //     .data(total)
+        //     .enter()
+        //     .append('p')
+        //     .text(function(d) {
+        //         return d;
+        //     })
+        //     .style("color", function(d) {
+        //         if (typeof(d) === "string") {
+        //             return "red";
+        //         } else {
+        //             return "blue";
+        //         }
+        //     });
 
-        // stats = []
-        // keys.forEach(function(country) {
-        //     console.log(element[country]);
-        //     stats.append(element[country]);
-        //     console.log(stats);
-        // })
 
-        d3.select('body').selectAll('p')
-            .data(total)
-            .enter()
-            .append('p')
-            .text(function(d) {
-                return d;
-            })
-            .style("color", function(d) {
-                if (typeof(d) === "string") {
-                    return "red";
-                } else {
-                    return "blue";
-                }
-            });
-      })
+      d3.select("body").selectAll("div")
+          .data(values)
+          .enter()
+          .append("div")
+          .attr("class", "bar")
+          .style("height", function(d) {
+              barh = d / 100
+              return barh + "px";
+          });
+      });
 
-      // d3.select("body").selectAll("p")
-      //     .data(dataset)
-      //     .enter()
-      //     .append("p")
-      //     .text(function(d) { return d; })
-      //     });
     </script>
   </body>
 </html>
