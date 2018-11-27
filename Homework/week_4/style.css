@@ -9,7 +9,7 @@ rect.bar {
 }
 
 rect.sel {
-    fill: blue;
+    fill: #245199;
     margin-right: 2px;
     stroke: black;
 }

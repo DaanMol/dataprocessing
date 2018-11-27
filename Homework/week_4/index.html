@@ -14,9 +14,14 @@ Interacivity source : https://www.competa.com/blog/how-create-tooltips-in-d3-js/
   <body>
     <script type="text/javascript">
       d3.select("head").append("title").text("future bar chart")
-      d3.select("body").append("h1").text("D3 bar chart. ")
-      d3.select("body").append("h2").text("Daan Molleman - 11275820. ")
+      d3.select("body").append("h1").text("D3 bar chart")
+      d3.select("body").append("h2").text("Daan Molleman - 11275820")
+      d3.select("body").append("p").text("This chart shows the percentage of \
+                                           primary engery of a country consists\
+                                           of renewable energy in 2016.")
+      d3.select("body").append("h4").text("source: OECD (2017)")
 
+      // open file first, then start visualising
       d3.json("data.json").then(function(data) {
 
         // create arrays with data and delete last entry (is useless)
@@ -50,29 +55,31 @@ Interacivity source : https://www.competa.com/blog/how-create-tooltips-in-d3-js/
                        .append("rect");
 
         // draw the bars with correct padding
-        var xPadding = 4
+        var interPadding = 4
+        var xPadding = 50
         var yPadding = 10
 
         // define y scale
         var yScale = d3.scaleLinear()
-                       .domain([0, 89.52])
+                       .domain([0, Math.max.apply(null, values)])
                        .range([h-yPadding, yPadding]);
 
         // draw the bars
         rects.data(values)
              .attr("x", function(d, i) {
-               return (i * ((w -31) / values.length)) + 31;
+               return (i * ((w -xPadding) / values.length)) + xPadding;
              })
              .attr("y", function(d) {
-               return h - (d * scaler) - yPadding
+               return yScale(d)
              })
-             .attr("width", w / values.length - xPadding)
+             .attr("width", w / values.length - interPadding)
              .attr("height", function(e) {
-               return e * scaler
+               return h - yScale(e) - yPadding
              })
              .attr("class", "bar")
 
-             // show tooltip and change colour when mouse is on bar
+             /* show tooltip and change colour when mouse is on bar
+             the following code comes from the source named atop the doc */
              .on("mouseover", function(d) {
                d3.select(this)
                     .style("cursor", "pointer")
@@ -105,12 +112,20 @@ Interacivity source : https://www.competa.com/blog/how-create-tooltips-in-d3-js/
                       .style("display", "none")
              })
 
-        // call y-axis label
-        var padding = 30
+        // call y-axis ticks
         svg.append("g")
            .attr("class", "axis")
-           .attr("transform", "translate(" + padding + ",0)")
+           .attr("transform", "translate(" + xPadding + ",0)")
            .call(d3.axisLeft(yScale));
+
+        // create y axis label
+        svg.append("text")
+          .attr("transform", "rotate(-90)")
+          .attr("y", 0)
+          .attr("x",0 - (h / 2))
+          .attr("dy", "1em")
+          .style("text-anchor", "middle")
+          .text("% renewable energy");
 
         // create x-axis labels
         svg.selectAll("label")
@@ -118,11 +133,10 @@ Interacivity source : https://www.competa.com/blog/how-create-tooltips-in-d3-js/
            .enter()
            .append("text")
            .text(function(d) {
-             console.log(d);
              return d;
            })
            .attr("x", function(d, i) {
-             return (i * ((w -31) / values.length)) + 31;
+             return (i * ((w -xPadding) / values.length)) + xPadding;
            })
            .attr("y", h)
            .attr("class", "label");
