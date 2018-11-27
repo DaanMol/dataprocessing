@@ -71,6 +71,8 @@ Interacivity source : https://www.competa.com/blog/how-create-tooltips-in-d3-js/
                return e * scaler
              })
              .attr("class", "bar")
+
+             // show tooltip and change colour when mouse is on bar
              .on("mouseover", function(d) {
                d3.select(this)
                     .style("cursor", "pointer")
@@ -81,6 +83,8 @@ Interacivity source : https://www.competa.com/blog/how-create-tooltips-in-d3-js/
                       .style("opacity", "1")
                       .style("display", "block")
              })
+
+             // keep the tooltip above the mouse when mouse is on bar
              .on("mousemove", function(d) {
                d3.select(this)
                myTool
@@ -88,6 +92,8 @@ Interacivity source : https://www.competa.com/blog/how-create-tooltips-in-d3-js/
                  .style("left", (d3.event.pageX - 40) + "px")
                  .style("top", (d3.event.pageY - 50) + "px")
              })
+
+             // remove tooltip and restore colour
              .on("mouseout", function(d, i) {
                d3.select(this)
                     .style("cursor", "normal")
