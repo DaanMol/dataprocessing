@@ -1,0 +1,4 @@
+Application name 	Javascript scatterplot
+API key 	83b31291125a16fb55c0766d2c7d1a01
+Shared secret 	89f4b09763161ff4900ed3a457d29966
+Registered to 	DaanMol
