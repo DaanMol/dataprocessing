@@ -1,3 +1,22 @@
 /* Daan Molleman
 11275820
 Scatterplot */
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+
+.axis text {
+    font-family: sans-serif;
+    font-size: 11px;
+}
+
+h4.head {
+    font-family: Monospace;
+}
+h3.head {
+    font-family: Monospace;
+}

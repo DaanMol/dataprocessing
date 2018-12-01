@@ -9,10 +9,30 @@ var consConf = "http://stats.oecd.org/SDMX-JSON/data/HH_DASH/FRA+DEU+KOR+NLD+PRT
 // var consConf = "https://data.mprog.nl/course/10%20Homework/100%20D3%20Scatterplot/datasets/consconf.json"
 
 var requests = [d3.json(womenInScience), d3.json(consConf)];
+
+// define the countries that are not explicitly defined in the dataset
 const countries = ["France", "Netherlands", "Portugal", "Germany",
                  "United Kingdom", "Korea"];
-const years = ["2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014",
-               "2015"];
+// const years = ["2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014",
+//                "2015"];
+
+// define width and height of the svg
+const w = 1000;
+const h = 450;
+const dotPadding = 70;
+const xPadding = 50;
+const padding = 30
+
+d3.select("head").append("title").text("D3 bar chart - Daan Molleman")
+d3.select("body").append("h1").text("D3 bar chart").style("font-family", "Monospace")
+d3.select("body").append("h2").text("Daan Molleman - 11275820")
+                 .style("font-family", "Monospace")
+d3.select("body").append("p").text("This chart shows the correlation between \
+                                    the percentage of women working in science\
+                                    and the consumer confidence in a certain year")
+                 .style("font-family", "Monospace")
+d3.select("body").append("h4").text("source: OECD (2018)")
+                 .style("font-family", "Monospace")
 
 window.onload = function() {
   // request api
@@ -21,7 +41,57 @@ window.onload = function() {
       let consValues = parseData(response[1]);
 
       dots = makeDots(womenValues, consValues);
-      console.log(dots)
+
+      // create scales
+      var xScale = d3.scaleLinear()
+                     .domain([calc(womenValues, "min"),
+                              calc(womenValues, "max")])
+                     .range([xPadding, w - padding])
+      var yScale = d3.scaleLinear()
+                     .domain([calc(consValues, "min"), calc(consValues, "max")])
+                     .range([h-padding, padding]);
+
+      // initialise svg variable
+      var svg = d3.select("body")
+                  .append("svg")
+                  .attr("width", w)
+                  .attr("height", h);
+
+      // insert circles
+      svg.selectAll("circle")
+         .data(dots)
+         .enter()
+         .append("circle")
+         .attr("cx", function(d) {
+           console.log(d.women)
+           return xScale(d.women);
+         })
+         .attr("cy", function(d) {
+             return yScale(d.cons);
+         })
+         .attr("r", 5);
+
+      // call x-axis ticks
+      svg.append("g")
+         .attr("class", "axis")
+         .attr("transform", "translate(0," + (h - padding) + ")")
+         .call(d3.axisBottom(xScale));
+
+      // call y-axis ticks
+      svg.append("g")
+         .attr("class", "axis")
+         .attr("transform", "translate(" + xPadding + ",0)")
+         .call(d3.axisLeft(yScale));
+
+      // create y axis label
+      svg.append("text")
+         .attr("transform", "rotate(-90)")
+         .attr("y", -5)
+         .attr("x",0 - (h / 2))
+         .attr("dy", "1em")
+         .style("text-anchor", "middle")
+         .style("font-family", "Monospace")
+         .text("consumer confindence");
   });
 }
 
@@ -67,6 +137,19 @@ function makeDots(set1, set2) {
                     women:set1[i].value, cons:set2[i].value});
   }
   return dotList
+}
+
+function calc(set, stat) {
+    // calculate a min or max from an array of objects
+    stats = [];
+    for (i in set) {
+      stats.push(set[i].value)
+    }
+    if(stat === "max") {
+        return Math.max.apply(null, stats)
+    } else {
+        return Math.min.apply(null, stats)
+    }
 }
 
 // france, netherlands, portugal, germany, united kingdom, korea
