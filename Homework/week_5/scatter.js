@@ -35,27 +35,15 @@ window.onload = function() {
       let womenValues = parseData(response[0]);
       let consValues = parseData(response[1]);
 
-      userInput = "Portugal"
-      console.log(womenValues)
-      console.log(consValues)
-      // console.log(countries.indexOf(userInput))
-      // console.log("yes")
+      userInput = "Korea"
+
       userSelection1 = womenValues[countries1.indexOf(userInput)][userInput]
       userSelection2 = consValues[countries2.indexOf(userInput)][userInput]
-      // console.log(userSelection1)
-      // console.log(userSelection2)
 
       dots = makeDots(userSelection1, userSelection2);
 
       // create scales
-      var xScale = d3.scaleLinear()
-                     .domain([calc(userSelection1, "min") - 1,
-                              calc(userSelection1, "max") + 1])
-                     .range([xPadding, w - padding])
-      var yScale = d3.scaleLinear()
-                     .domain([calc(userSelection2, "min") - 1,
-                              calc(userSelection2, "max") + 1])
-                     .range([h-padding, padding]);
+      createScale(userSelection1, userSelection2);
 
       // initialise svg variable
       var svg = d3.select("body")
@@ -64,18 +52,18 @@ window.onload = function() {
                   .attr("height", h);
 
       // insert circles
-      svg.selectAll("circle")
-         .data(dots)
-         .enter()
-         .append("circle")
-         .attr("cx", function(d, i) {
-             return xScale(d[Object.keys(d)][0]);
-         })
-         .attr("cy", function(d, i) {
-             return yScale(d[Object.keys(d)][1]);
-         })
-         .attr("r", 5)
-         .attr("class", "normal");
+      window.circles = svg.selectAll("circle")
+                       .data(dots)
+                       .enter()
+                       .append("circle")
+                       .attr("cx", function(d) {
+                           return xScale(d[Object.keys(d)][0]);
+                       })
+                       .attr("cy", function(d) {
+                           return yScale(d[Object.keys(d)][1]);
+                       })
+                       .attr("r", 5)
+                       .attr("class", "normal");
 
       // insert circle tags
       svg.selectAll("text")
@@ -122,6 +110,16 @@ window.onload = function() {
          .style("text-anchor", "middle")
          .style("font-family", "Monospace")
          .text("consumer confindence");
+
+      // // create legend
+      // legend = svg.append("g")
+      //             .attr("class","legend")
+      //             .attr("transform","translate(50,30)")
+      //             .style("font-size","12px")
+      //             .call(d3.legend)
+
+      update(userSelection1, userSelection2);
+      console.log("updated")
   });
 }
 
@@ -188,19 +186,37 @@ function parseData(data) {
 }
 
 function makeDots(set1, set2) {
-  // combine values in array of arrays
-  // use womenValues length because it holds less dates
-  // this way there no missing data
+  /* combine values in array of objects */
   dotList = [];
   for (i in set1) {
       year = Object.keys(set1[i])[0]
-      dotList.push({[year]:[set1[i][year], set2[i][year]]})
+
+      for (j in set2) {
+
+          // only use years if both datasets have them
+          if (Object.keys(set1[i])[0] === Object.keys(set2[j])[0]) {
+              dotList.push({[year]:[set1[i][Object.keys(set1[i])[0]],
+                                    set2[j][Object.keys(set2[j])[0]]]})
+          }
+      }
   }
   return dotList
 }
 
+function createScale() {
+  /* create scale for x and y*/
+  window.xScale = d3.scaleLinear()
+                 .domain([calc(userSelection1, "min") - 1,
+                          calc(userSelection1, "max") + 1])
+                 .range([xPadding, w - padding]);
+  window.yScale = d3.scaleLinear()
+                 .domain([calc(userSelection2, "min") - 1,
+                          calc(userSelection2, "max") + 1])
+                 .range([h-padding, padding]);
+}
+
 function calc(set, stat) {
-    // calculate a min or max from an array of objects
+    /* calculate a min or max from an array of objects */
     stats = [];
     for (i in set) {
       stats.push(set[i][Object.keys(set[i])])
@@ -212,4 +228,32 @@ function calc(set, stat) {
     }
 }
 
-// france, netherlands, portugal, germany, united kingdom, korea
+function update(updateValues1, updateValues2) {
+    /* updates data to a selected country */
+
+    // calculate new scalse
+    createScale(updateValues1, updateValues2);
+
+    // calculate new dots
+    newDots = makeDots(updateValues1, updateValues2)
+
+    // join data
+    var circ = circles.selectAll("circle")
+                      .data(newDots, function(d) {return d;});
+
+    // update the old circles
+    circ.attr("class", "update")
+    circ.enter()
+        .append("circle")
+        .attr("class", "enter")
+        .attr("cx", function(d) {
+            return xScale(d[Object.keys(d)][0])
+        })
+        .attr("cy", function(d) {
+            return yScale(d[Object.keys(d)][1]);
+        })
+        .merge(circ);
+
+    // remove old elements
+    circ.exit().remove();
+}
