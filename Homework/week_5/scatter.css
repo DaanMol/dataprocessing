@@ -20,3 +20,7 @@ h4.head {
 h3.head {
     font-family: Monospace;
 }
+
+circle.normal {
+    fill: teal;
+}
