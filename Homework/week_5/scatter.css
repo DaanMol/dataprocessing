@@ -24,3 +24,7 @@ h3.head {
 circle.normal {
     fill: teal;
 }
+
+text.tag {
+    font-family: Monospace;
+}

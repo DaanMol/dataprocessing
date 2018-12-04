@@ -3,22 +3,21 @@
 // Scatterplot
 // api = application programming interface
 
-var womenInScience = "http://stats.oecd.org/SDMX-JSON/data/MSTI_PUB/TH_WRXRS.FRA+DEU+KOR+NLD+PRT+GBR/all?startTime=2007&endTime=2015"
-// var womenInScience = "https://data.mprog.nl/course/10%20Homework/100%20D3%20Scatterplot/datasets/msti.json"
-var consConf = "http://stats.oecd.org/SDMX-JSON/data/HH_DASH/FRA+DEU+KOR+NLD+PRT+GBR.COCONF.A/all?startTime=2007&endTime=2015"
-// var consConf = "https://data.mprog.nl/course/10%20Homework/100%20D3%20Scatterplot/datasets/consconf.json"
+var womenInScience = "https://stats.oecd.org/SDMX-JSON/data/MSTI_PUB/TH_WRXRS.FRA+DEU+KOR+NLD+PRT+GBR/all?startTime=2007&endTime=2015"
+var consConf = "https://stats.oecd.org/SDMX-JSON/data/HH_DASH/FRA+DEU+KOR+NLD+PRT+GBR.COCONF.A/all?startTime=2007&endTime=2015"
+var harmUnemp = "https://stats.oecd.org/SDMX-JSON/data/KEI/LR+LRHUTTTT.FRA+DEU+KOR+NLD+PRT+GBR.ST.A+Q+M/all?startTime=2007&endTime=2015"
 
-var requests = [d3.json(womenInScience), d3.json(consConf)];
+var requests = [d3.json(womenInScience), d3.json(consConf), d3.json(harmUnemp)];
 
 // define width and height of the svg
 const w = 1000;
 const h = 450;
 const dotPadding = 70;
-const xPadding = 50;
-const padding = 30
+const xPadding = 70;
+const padding = 40
 
-d3.select("head").append("title").text("D3 bar chart - Daan Molleman")
-d3.select("body").append("h1").text("D3 bar chart").style("font-family", "Monospace")
+d3.select("head").append("title").text("D3 Scatterplot - Daan Molleman")
+d3.select("body").append("h1").text("D3 Scatterplot").style("font-family", "Monospace")
 d3.select("body").append("h2").text("Daan Molleman - 11275820")
                  .style("font-family", "Monospace")
 d3.select("body").append("p").text("This chart shows the correlation between \
@@ -29,16 +28,23 @@ d3.select("body").append("h4").text("source: OECD (2018)")
                  .style("font-family", "Monospace")
 
 window.onload = function() {
+
   // request api
   Promise.all(requests).then(function(response) {
-    console.log(response)
+      console.log(response)
       let womenValues = parseData(response[0]);
       let consValues = parseData(response[1]);
+      let unempValues = parseData(response[2]);
+      console.log(unempValues)
 
-      userInput = "Korea"
+      d3.select("#userInput").on("input", function() {
+        update(womenValues, consValues, this.value)
+      })
 
-      userSelection1 = womenValues[countries1.indexOf(userInput)][userInput]
-      userSelection2 = consValues[countries2.indexOf(userInput)][userInput]
+      defaultInput = "France"
+
+      userSelection1 = womenValues[countries1.indexOf(defaultInput)][defaultInput]
+      userSelection2 = consValues[countries2.indexOf(defaultInput)][defaultInput]
 
       dots = makeDots(userSelection1, userSelection2);
 
@@ -52,74 +58,37 @@ window.onload = function() {
                   .attr("height", h);
 
       // insert circles
-      window.circles = svg.selectAll("circle")
-                       .data(dots)
+      var circles = svg.selectAll("circle")
+                       .data(years)
                        .enter()
                        .append("circle")
                        .attr("cx", function(d) {
-                           return xScale(d[Object.keys(d)][0]);
+                           return xScale(dots[d][0]);
                        })
                        .attr("cy", function(d) {
-                           return yScale(d[Object.keys(d)][1]);
+                           return yScale(dots[d][1]);
                        })
                        .attr("r", 5)
                        .attr("class", "normal");
 
-      // insert circle tags
-      svg.selectAll("text")
-         .data(dots)
-         .enter()
-         .append("text")
-         .text(function(d) {
-            return Object.keys(d)[0];
-         })
-         .attr("x", function(d) {
-            return xScale(d[Object.keys(d)][0]) + 10;
-         })
-         .attr("y", function(d) {
-            return yScale(d[Object.keys(d)][1]);
-         })
+      var tags = svg.selectAll("text")
+                     .data(years)
+                     .enter()
+                     .append("text")
+                     .text(function(d) { return d; })
+                     .attr("x", function(d) {
+                        return xScale(dots[d][0]) + 10;
+                     })
+                     .attr("y", function(d) {
+                        return yScale(dots[d][1]);
+                     })
+                     .attr("class", "tag")
 
-      // call x-axis ticks
-      svg.append("g")
-         .attr("class", "axis")
-         .attr("transform", "translate(0," + (h - padding) + ")")
-         .call(d3.axisBottom(xScale));
+      // draw the scales for the graph
+      drawScales(svg);
 
-      // create y axis label
-      svg.append("text")
-         .attr("y", h - 10)
-         .attr("x", w / 2)
-         .attr("dy", "1em")
-         .style("text-anchor", "middle")
-         .style("font-family", "Monospace")
-         .text("Percentage of women in science");
-
-      // call y-axis ticks
-      svg.append("g")
-         .attr("class", "axis")
-         .attr("transform", "translate(" + xPadding + ",0)")
-         .call(d3.axisLeft(yScale));
-
-      // create y axis label
-      svg.append("text")
-         .attr("transform", "rotate(-90)")
-         .attr("y", -5)
-         .attr("x",0 - (h / 2))
-         .attr("dy", "1em")
-         .style("text-anchor", "middle")
-         .style("font-family", "Monospace")
-         .text("consumer confindence");
-
-      // // create legend
-      // legend = svg.append("g")
-      //             .attr("class","legend")
-      //             .attr("transform","translate(50,30)")
-      //             .style("font-size","12px")
-      //             .call(d3.legend)
-
-      update(userSelection1, userSelection2);
-      console.log("updated")
+      // create the tags for the dots
+      createTags(dots);
   });
 }
 
@@ -130,9 +99,13 @@ function parseData(data) {
 
     // the datasets are formatted differently, so check for proper formatting
     if (data.structure.dimensions.series.length === 2) {
-      format = 1 //women
+      format = 1 //women or unemployment
       set = 0
       window.countries1 = [];
+    } else if (data.structure.dimensions.series.length === 4) {
+      format = 1
+      set = 0
+      window.countries3 = [];
     } else {
       format = 0 //cons
       set = 1
@@ -187,31 +160,29 @@ function parseData(data) {
 
 function makeDots(set1, set2) {
   /* combine values in array of objects */
-  dotList = [];
+  dotList = {};
   for (i in set1) {
       year = Object.keys(set1[i])[0]
-
       for (j in set2) {
 
           // only use years if both datasets have them
           if (Object.keys(set1[i])[0] === Object.keys(set2[j])[0]) {
-              dotList.push({[year]:[set1[i][Object.keys(set1[i])[0]],
-                                    set2[j][Object.keys(set2[j])[0]]]})
+              dotList[year] = [set1[i][Object.keys(set1[i])[0]],
+                               set2[j][Object.keys(set2[j])[0]]]}
           }
       }
-  }
   return dotList
 }
 
-function createScale() {
+function createScale(set1, set2) {
   /* create scale for x and y*/
   window.xScale = d3.scaleLinear()
-                 .domain([calc(userSelection1, "min") - 1,
-                          calc(userSelection1, "max") + 1])
+                 .domain([calc(set1, "min") - 1,
+                          calc(set1, "max") + 1])
                  .range([xPadding, w - padding]);
   window.yScale = d3.scaleLinear()
-                 .domain([calc(userSelection2, "min") - 1,
-                          calc(userSelection2, "max") + 1])
+                 .domain([calc(set2, "min") - 1,
+                          calc(set2, "max") + 1])
                  .range([h-padding, padding]);
 }
 
@@ -228,32 +199,96 @@ function calc(set, stat) {
     }
 }
 
-function update(updateValues1, updateValues2) {
+function drawScales(svg) {
+    /* draw x and y scale */
+    // call x-axis
+    svg.append("g")
+       .attr("class", "axis")
+       .attr("transform", "translate(0," + (h - padding) + ")")
+       .attr("id", "xaxis")
+       .call(d3.axisBottom(xScale));
+
+    // create x axis label
+    svg.append("text")
+       .attr("y", h - 20)
+       .attr("x", w / 2)
+       .attr("dy", "1em")
+       .style("text-anchor", "middle")
+       .style("font-family", "Monospace")
+       .text("Percentage of women in science");
+
+    // call y-axis ticks
+    svg.append("g")
+       .attr("class", "axis")
+       .attr("transform", "translate(" + xPadding + ",0)")
+       .attr("id", "yaxis")
+       .call(d3.axisLeft(yScale));
+
+    // create y axis label
+    svg.append("text")
+       .attr("transform", "rotate(-90)")
+       .attr("y", 0)
+       .attr("x",0 - (h / 2))
+       .attr("dy", "1em")
+       .style("text-anchor", "middle")
+       .style("font-family", "Monospace")
+       .text("consumer confindence");
+}
+
+function update(womenValues, consValues, selection) {
     /* updates data to a selected country */
 
-    // calculate new scalse
-    createScale(updateValues1, updateValues2);
+    updateValues1 = womenValues[countries1.indexOf(selection)][selection]
+    updateValues2 = consValues[countries2.indexOf(selection)][selection]
 
     // calculate new dots
     newDots = makeDots(updateValues1, updateValues2)
 
-    // join data
-    var circ = circles.selectAll("circle")
-                      .data(newDots, function(d) {return d;});
+    // calculate new scale
+    createScale(updateValues1, updateValues2);
 
-    // update the old circles
-    circ.attr("class", "update")
-    circ.enter()
-        .append("circle")
-        .attr("class", "enter")
-        .attr("cx", function(d) {
-            return xScale(d[Object.keys(d)][0])
-        })
-        .attr("cy", function(d) {
-            return yScale(d[Object.keys(d)][1]);
-        })
-        .merge(circ);
+    // select data to change
+    var svg = d3.select("body");
 
-    // remove old elements
-    circ.exit().remove();
+    // make changes
+    svg.selectAll(".normal")
+            .data(years)
+            .transition()
+            .duration(750)
+            .attr("cx", function(d) {
+                if (newDots.hasOwnProperty(String(d))) {
+                    return xScale(newDots[d][0])
+                } else {
+                    return 2000
+                }
+            })
+            .attr("cy", function(d) {
+                if (newDots.hasOwnProperty(String(d))) {
+                    return yScale(newDots[d][1])
+                } else {
+                    return 2000
+                }
+            })
+
+    // update tags
+    svg.selectAll(".tag")
+       .data(years)
+       .transition()
+       .duration(750)
+       .attr("x", function(d) {
+           if (newDots.hasOwnProperty(String(d))) {
+              console.log("YES")
+               return xScale(newDots[d][0]) + 10
+           } else {
+               return 2000
+           }
+       })
+       .attr("y", function(d) {
+           if (newDots.hasOwnProperty(String(d))) {
+              console.log("YES2")
+               return yScale(newDots[d][1])
+           } else {
+               return 2000
+           }
+       })
 }
