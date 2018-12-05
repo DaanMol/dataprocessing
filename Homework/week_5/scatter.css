@@ -21,8 +21,9 @@ h3.head {
     font-family: Monospace;
 }
 
-circle.normal {
-    fill: teal;
+.normal {
+  stroke: black;
+  stroke-width: 0.5;
 }
 
 text.tag {
