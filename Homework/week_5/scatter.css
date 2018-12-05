@@ -28,3 +28,24 @@ circle.normal {
 text.tag {
     font-family: Monospace;
 }
+
+.legend {
+    padding: 5px;
+    font: 10px Monospace;
+    background: yellow;
+    box-shadow: 2px 2px 1px #888;
+        }
+
+g.legendQuant {
+    font: 11px Monospace;
+}
+
+text.country {
+    font: 15px Monospace;
+    font-weight: bold;
+}
+
+* {
+text-align: center !important;
+margin: 20 !important;
+}

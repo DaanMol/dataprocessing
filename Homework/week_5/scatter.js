@@ -5,7 +5,7 @@
 
 var womenInScience = "https://stats.oecd.org/SDMX-JSON/data/MSTI_PUB/TH_WRXRS.FRA+DEU+KOR+NLD+PRT+GBR/all?startTime=2007&endTime=2015"
 var consConf = "https://stats.oecd.org/SDMX-JSON/data/HH_DASH/FRA+DEU+KOR+NLD+PRT+GBR.COCONF.A/all?startTime=2007&endTime=2015"
-var harmUnemp = "https://stats.oecd.org/SDMX-JSON/data/KEI/LR+LRHUTTTT.FRA+DEU+KOR+NLD+PRT+GBR.ST.A+Q+M/all?startTime=2007&endTime=2015"
+var harmUnemp = "https://stats.oecd.org/SDMX-JSON/data/KEI/LR+LRHUTTTT.FRA+DEU+KOR+NLD+PRT+GBR.ST.A/all?startTime=2007&endTime=2015"
 
 var requests = [d3.json(womenInScience), d3.json(consConf), d3.json(harmUnemp)];
 
@@ -15,6 +15,7 @@ const h = 450;
 const dotPadding = 70;
 const xPadding = 70;
 const padding = 40
+const colours = ['#ffffb2','#fed976','#feb24c','#fd8d3c','#f03b20','#bd0026']
 
 d3.select("head").append("title").text("D3 Scatterplot - Daan Molleman")
 d3.select("body").append("h1").text("D3 Scatterplot").style("font-family", "Monospace")
@@ -31,25 +32,29 @@ window.onload = function() {
 
   // request api
   Promise.all(requests).then(function(response) {
-      console.log(response)
       let womenValues = parseData(response[0]);
       let consValues = parseData(response[1]);
       let unempValues = parseData(response[2]);
-      console.log(unempValues)
 
       d3.select("#userInput").on("input", function() {
-        update(womenValues, consValues, this.value)
+        update(womenValues, consValues, unempValues, this.value)
       })
 
       defaultInput = "France"
 
       userSelection1 = womenValues[countries1.indexOf(defaultInput)][defaultInput]
       userSelection2 = consValues[countries2.indexOf(defaultInput)][defaultInput]
+      userSelection3 = unempValues[countries1.indexOf(defaultInput)][defaultInput]
+
+      unemployment = [];
+      for (i in userSelection3) {
+        unemployment.push(userSelection3[i][years[i]])
+      }
 
       dots = makeDots(userSelection1, userSelection2);
 
       // create scales
-      createScale(userSelection1, userSelection2);
+      createScale(userSelection1, userSelection2, userSelection3);
 
       // initialise svg variable
       var svg = d3.select("body")
@@ -69,7 +74,10 @@ window.onload = function() {
                            return yScale(dots[d][1]);
                        })
                        .attr("r", 5)
-                       .attr("class", "normal");
+                       .attr("class", "normal")
+                       .style("fill", function(d, i) {
+                          return lScale(userSelection3[i][String(d)])
+                       });
 
       var tags = svg.selectAll("text")
                      .data(years)
@@ -84,11 +92,41 @@ window.onload = function() {
                      })
                      .attr("class", "tag")
 
+      // draw country name atop graph
+      svg.selectAll(".country")
+         .data(defaultInput)
+         .enter()
+         .append("text")
+         .attr("x", 20)
+         .attr("y", 20)
+         .attr("class", "country")
+         .text(defaultInput)
+
       // draw the scales for the graph
       drawScales(svg);
 
-      // create the tags for the dots
-      createTags(dots);
+      // creat the legend
+      var svg = d3.select("svg")
+
+      // select space to draw legend
+      svg.append("g")
+         .attr("class", "legendQuant")
+         .attr("transform", "translate(855,200)")
+
+      // create legend object
+      var legend = d3.legendColor()
+                      .labelFormat(d3.format(".2f"))
+                      .title("Uneployment rate")
+                      .shapePadding(5)
+                      .shapeWidth(50)
+                      .shapeHeight(20)
+                      .labelOffset(12)
+                      .titleWidth(100)
+                      .scale(lScale)
+
+      // draw the legend
+      svg.select(".legendQuant")
+        .call(legend);
   });
 }
 
@@ -99,11 +137,11 @@ function parseData(data) {
 
     // the datasets are formatted differently, so check for proper formatting
     if (data.structure.dimensions.series.length === 2) {
-      format = 1 //women or unemployment
+      format = 1 //women
       set = 0
       window.countries1 = [];
     } else if (data.structure.dimensions.series.length === 4) {
-      format = 1
+      format = 1 // unemployment
       set = 0
       window.countries3 = [];
     } else {
@@ -121,6 +159,8 @@ function parseData(data) {
           countries2.push(data.structure.dimensions.series[format].values[i].name)
       }
     })
+
+    // create global year array for future use
     window.years = [];
 
     // retrieve the years from the dataset
@@ -128,7 +168,6 @@ function parseData(data) {
     yearData.forEach(function(i) {
       years.push(data.structure.dimensions.observation[0].values[i].id)
     })
-
     var values = [];
 
     // extract the object of country objects
@@ -139,7 +178,7 @@ function parseData(data) {
         let obs = Object.keys(data.dataSets[0].series[i].observations);
 
         // the country 'number' is differently formatted in each dataset
-        if (i.length === 3) {
+        if (i.length === 3 || i.length === 7) {
             country = countries1[i[2]]
         } else {
             country = countries2[i[0]]
@@ -174,7 +213,7 @@ function makeDots(set1, set2) {
   return dotList
 }
 
-function createScale(set1, set2) {
+function createScale(set1, set2, set3) {
   /* create scale for x and y*/
   window.xScale = d3.scaleLinear()
                  .domain([calc(set1, "min") - 1,
@@ -184,6 +223,11 @@ function createScale(set1, set2) {
                  .domain([calc(set2, "min") - 1,
                           calc(set2, "max") + 1])
                  .range([h-padding, padding]);
+  window.lScale = d3.scaleQuantize()
+                    .domain([calc(set3, "min"),
+                             calc(set3, "max")])
+                    .range(colours)
+  console.log(calc(set3, "min"), calc(set3, "max"))
 }
 
 function calc(set, stat) {
@@ -235,17 +279,18 @@ function drawScales(svg) {
        .text("consumer confindence");
 }
 
-function update(womenValues, consValues, selection) {
+function update(womenValues, consValues, unempValues, selection) {
     /* updates data to a selected country */
 
     updateValues1 = womenValues[countries1.indexOf(selection)][selection]
     updateValues2 = consValues[countries2.indexOf(selection)][selection]
+    updateValues3 = unempValues[countries1.indexOf(selection)][selection]
 
     // calculate new dots
     newDots = makeDots(updateValues1, updateValues2)
 
     // calculate new scale
-    createScale(updateValues1, updateValues2);
+    createScale(updateValues1, updateValues2, updateValues3);
 
     // select data to change
     var svg = d3.select("body");
@@ -269,6 +314,10 @@ function update(womenValues, consValues, selection) {
                     return 2000
                 }
             })
+            .style("fill", function(d, i) {
+               return lScale(updateValues3[i][String(d)])
+            });
+
 
     // update tags
     svg.selectAll(".tag")
@@ -277,7 +326,6 @@ function update(womenValues, consValues, selection) {
        .duration(750)
        .attr("x", function(d) {
            if (newDots.hasOwnProperty(String(d))) {
-              console.log("YES")
                return xScale(newDots[d][0]) + 10
            } else {
                return 2000
@@ -285,10 +333,27 @@ function update(womenValues, consValues, selection) {
        })
        .attr("y", function(d) {
            if (newDots.hasOwnProperty(String(d))) {
-              console.log("YES2")
                return yScale(newDots[d][1])
            } else {
                return 2000
            }
        })
+
+     var legend = d3.legendColor()
+                     .labelFormat(d3.format(".2f"))
+                     .title("Uneployment rate")
+                     .shapePadding(5)
+                     .shapeWidth(50)
+                     .shapeHeight(20)
+                     .labelOffset(12)
+                     .titleWidth(100)
+                     .scale(lScale)
+
+     // draw the legend
+     svg.select(".legendQuant")
+       .call(legend);
+
+    // update country name atop graph
+    svg.selectAll(".country")
+      .text(selection)
 }
