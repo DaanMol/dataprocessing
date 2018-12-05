@@ -252,7 +252,7 @@ function drawScales(svg) {
     svg.append("g")
        .attr("class", "xaxis")
        .attr("transform", "translate(0," + (h - padding) + ")")
-       .attr("id", "xaxis")
+       // .attr("id", "xaxis")
        .call(d3.axisBottom(xScale));
 
     // create x axis label
@@ -268,7 +268,7 @@ function drawScales(svg) {
     svg.append("g")
        .attr("class", "yaxis")
        .attr("transform", "translate(" + xPadding + ",0)")
-       .attr("id", "yaxis")
+       // .attr("id", "yaxis")
        .call(d3.axisLeft(yScale));
 
     // create y axis label
@@ -321,16 +321,6 @@ function update(womenValues, consValues, unempValues, selection) {
                return lScale(updateValues3[i][String(d)])
             });
 
-    // update axes
-    svg.selectAll(".xaxis")
-       .attr("transform", "translate(0," + (h - padding) + ")")
-       .call(xScale)
-
-    svg.selectAll(".yaxis")
-       .attr("transform", "translate(" + xPadding + ",0)")
-       .call(yScale)
-
-
     // update tags
     svg.selectAll(".tag")
        .data(years)
@@ -368,5 +358,15 @@ function update(womenValues, consValues, unempValues, selection) {
 
     // update country name atop graph
     svg.selectAll(".country")
-       .text(selection)
+       .text(selection);
+
+   svg.selectAll(".xaxis")
+      .transition()
+      .duration(750)
+      .call(d3.axisBottom(xScale));
+
+   svg.selectAll(".yaxis")
+      .transition()
+      .duration(750)
+      .call(d3.axisLeft(yScale));
 }
