@@ -25,6 +25,9 @@ d3.select("body").append("p").text("This chart shows the correlation between \
                                     the percentage of women working in science\
                                     and the consumer confidence in a certain year")
                  .style("font-family", "Monospace")
+d3.select("body").append("p").text("The colour of the dots represents the \
+                                    employment rate")
+                 .style("font-family", "Monospace")
 d3.select("body").append("h4").text("source: OECD (2018)")
                  .style("font-family", "Monospace")
 
@@ -42,15 +45,18 @@ window.onload = function() {
 
       defaultInput = "France"
 
+      // select the proper country from each parsed dataset
       userSelection1 = womenValues[countries1.indexOf(defaultInput)][defaultInput]
       userSelection2 = consValues[countries2.indexOf(defaultInput)][defaultInput]
       userSelection3 = unempValues[countries1.indexOf(defaultInput)][defaultInput]
 
+      // instead of creating dots for the unemployment, create a simple array
       unemployment = [];
       for (i in userSelection3) {
         unemployment.push(userSelection3[i][years[i]])
       }
 
+      // create the dots to be plotted in the scatterplot
       dots = makeDots(userSelection1, userSelection2);
 
       // create scales
@@ -74,11 +80,12 @@ window.onload = function() {
                            return yScale(dots[d][1]);
                        })
                        .attr("r", 5)
-                       .attr("class", "normal")
                        .style("fill", function(d, i) {
                           return lScale(userSelection3[i][String(d)])
-                       });
+                       })
+                       .attr("class", "normal");
 
+      // create the tags for the years
       var tags = svg.selectAll("text")
                      .data(years)
                      .enter()
@@ -138,15 +145,11 @@ function parseData(data) {
     // the datasets are formatted differently, so check for proper formatting
     if (data.structure.dimensions.series.length === 2) {
       format = 1 //women
-      set = 0
       window.countries1 = [];
     } else if (data.structure.dimensions.series.length === 4) {
       format = 1 // unemployment
-      set = 0
-      window.countries3 = [];
     } else {
       format = 0 //cons
-      set = 1
       window.countries2 = [];
     }
 
@@ -214,7 +217,7 @@ function makeDots(set1, set2) {
 }
 
 function createScale(set1, set2, set3) {
-  /* create scale for x and y*/
+  /* create scale for x, y and third variable*/
   window.xScale = d3.scaleLinear()
                  .domain([calc(set1, "min") - 1,
                           calc(set1, "max") + 1])
@@ -227,7 +230,6 @@ function createScale(set1, set2, set3) {
                     .domain([calc(set3, "min"),
                              calc(set3, "max")])
                     .range(colours)
-  console.log(calc(set3, "min"), calc(set3, "max"))
 }
 
 function calc(set, stat) {
@@ -339,21 +341,22 @@ function update(womenValues, consValues, unempValues, selection) {
            }
        })
 
-     var legend = d3.legendColor()
-                     .labelFormat(d3.format(".2f"))
-                     .title("Uneployment rate")
-                     .shapePadding(5)
-                     .shapeWidth(50)
-                     .shapeHeight(20)
-                     .labelOffset(12)
-                     .titleWidth(100)
-                     .scale(lScale)
+    // update the legend with a new scale
+    var legend = d3.legendColor()
+                   .labelFormat(d3.format(".2f"))
+                   .title("Uneployment rate")
+                   .shapePadding(5)
+                   .shapeWidth(50)
+                   .shapeHeight(20)
+                   .labelOffset(12)
+                   .titleWidth(100)
+                   .scale(lScale)
 
-     // draw the legend
-     svg.select(".legendQuant")
+    // draw the legend
+    svg.select(".legendQuant")
        .call(legend);
 
     // update country name atop graph
     svg.selectAll(".country")
-      .text(selection)
+       .text(selection)
 }
