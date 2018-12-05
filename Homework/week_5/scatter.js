@@ -35,6 +35,7 @@ window.onload = function() {
 
   // request api
   Promise.all(requests).then(function(response) {
+      console.log(response)
       let womenValues = parseData(response[0]);
       let consValues = parseData(response[1]);
       let unempValues = parseData(response[2]);
@@ -249,7 +250,7 @@ function drawScales(svg) {
     /* draw x and y scale */
     // call x-axis
     svg.append("g")
-       .attr("class", "axis")
+       .attr("class", "xaxis")
        .attr("transform", "translate(0," + (h - padding) + ")")
        .attr("id", "xaxis")
        .call(d3.axisBottom(xScale));
@@ -265,7 +266,7 @@ function drawScales(svg) {
 
     // call y-axis ticks
     svg.append("g")
-       .attr("class", "axis")
+       .attr("class", "yaxis")
        .attr("transform", "translate(" + xPadding + ",0)")
        .attr("id", "yaxis")
        .call(d3.axisLeft(yScale));
@@ -319,6 +320,15 @@ function update(womenValues, consValues, unempValues, selection) {
             .style("fill", function(d, i) {
                return lScale(updateValues3[i][String(d)])
             });
+
+    // update axes
+    svg.selectAll(".xaxis")
+       .attr("transform", "translate(0," + (h - padding) + ")")
+       .call(xScale)
+
+    svg.selectAll(".yaxis")
+       .attr("transform", "translate(" + xPadding + ",0)")
+       .call(yScale)
 
 
     // update tags
