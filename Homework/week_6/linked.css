@@ -1,3 +1,22 @@
+/* Daan Molleman
+11275820
+Linked views */
+
+@font-face {
+    font-family: 'MLB-Block';
+    src:url('mlbblock/MLB-Block.ttf.woff') format('woff'),
+        url('mlbblock/MLB-Block.ttf.svg#MLB-Block') format('svg'),
+        url('mlbblock/MLB-Block.ttf.eot'),
+        url('mlbblock/MLB-Block.ttf.eot?#iefix') format('embedded-opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html *
+{
+   font-family: "MLB-Block" !important;
+}
+
 rect.bar {
     fill: green;
     margin-right: 2px;
@@ -30,7 +49,7 @@ rect.losssel {
 }
 
 .axis text {
-    font-family: sans-serif;
+    font-family: "MLB-Block";
     font-size: 11px;
 }
 
@@ -41,7 +60,7 @@ text.label {
 .mytooltip {
   position:absolute;
   text-align: center;
-  width: 50px;
+  width: 100px;
   height:auto;
   background-color: #42BFF4;
   border-radius: 10px;

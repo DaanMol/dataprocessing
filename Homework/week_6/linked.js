@@ -25,8 +25,6 @@ var svg = d3.selectAll("body")
             .attr("width", w)
             .attr("height", h)
 
- var g = svg.append("g").attr("transform", "translate(" + margins.left + "," + margins.upper + ")");
-
 // var requests = [d3.json(wsh), d3.json(laststats)];
 
 window.onload = function() {
@@ -63,25 +61,21 @@ function calc(set, stat) {
 }
 
 function drawRect(teams) {
-  console.log(teams)
-  teamNames = Object.keys(teams)
-  values = Object.values(teams)
 
   var rects = svg.selectAll("rect")
-                 .data(values)
+                 .data(teams)
                  .enter()
                  .append("rect");
 
   // draw the bars
-  rects.data(values)
+  rects.data(teams)
        .attr("x", function(d, i) {
-          console.log(i)
           return xScale(i);
        })
        .attr("y", function(d) {
           return yScale(d['wins'])
        })
-       .attr("width", w / values.length - margins.bars)
+       .attr("width", w / teams.length - margins.bars)
        .attr("height", function(d) {
           return h - yScale(d["wins"]) - margins.upper
        })
@@ -104,9 +98,9 @@ function drawRect(teams) {
        .on("mousemove", function(d) {
           d3.select(this)
           myTool
-            .html("<div id='thumbnail'><span>" + d.wins + "</div>")
-            .style("left", (d3.event.pageX - 40) + "px")
-            .style("top", (d3.event.pageY - 50) + "px")
+            .html("<div id='thumbnail'><span>" + d["team"] + "\n" + d["wins"] + "</div>")
+            .style("left", (d3.event.pageX - 60) + "px")
+            .style("top", (d3.event.pageY - 60) + "px")
        })
 
        // remove tooltip and restore colour
@@ -122,19 +116,19 @@ function drawRect(teams) {
        })
 
    var lose = svg.selectAll(".loss")
-                  .data(values)
+                  .data(teams)
                   .enter()
                   .append("rect");
 
     // draw losses
-    lose.data(values)
+    lose.data(teams)
          .attr("x", function(d, i) {
             return xScale(i);
          })
          .attr("y", function(d, i) {
             return yScale(d['losses']) - (h - yScale(d["wins"]) - margins.lower);
          })
-         .attr("width", w / values.length - margins.bars)
+         .attr("width", w / teams.length - margins.bars)
          .attr("height", function(d) {
             return h - yScale(d["losses"]) - margins.upper
          })
@@ -157,9 +151,9 @@ function drawRect(teams) {
          .on("mousemove", function(d) {
             d3.select(this)
             myTool
-              .html("<div id='thumbnail'><span>" + d["losses"] + "</div>")
-              .style("left", (d3.event.pageX - 40) + "px")
-              .style("top", (d3.event.pageY - 50) + "px")
+              .html("<div id='thumbnail'><span>" + d["team"] + "\n" + d["losses"] + "</div>")
+              .style("left", (d3.event.pageX - 60) + "px")
+              .style("top", (d3.event.pageY - 60) + "px")
          })
 
          // remove tooltip and restore colour
@@ -176,21 +170,14 @@ function drawRect(teams) {
 }
 
 function drawScales() {
-    /* draw x and y scale */
-    // call x-axis
-    svg.append("g")
-       .attr("class", "xaxis")
-       .attr("transform", "translate(0," + (h - margins.lower) + ")")
-       .call(d3.axisBottom(xScale));
-
-    let teams = Object.keys(majorleague)
+    /* draw the x and y scale */
 
      svg.selectAll("label")
-        .data(teams)
+        .data(majorleague)
         .enter()
         .append("text")
         .text(function(d) {
-          return d;
+          return d["team"].substring(0,3);
         })
         .attr("x", function(d, i) {
           return xScale(i);
@@ -213,4 +200,11 @@ function drawScales() {
        .style("text-anchor", "middle")
        .style("font-family", "Monospace")
        .text("Number of wins and losses");
+
+    // svg.selectAll(".label")
+    //    // .attr("y", 0)
+    //    //  .attr("x", 9)
+    //    //  .attr("dy", ".35em")
+    //     .attr("transform", "rotate(90)")
+    //     // .style("text-anchor", "start");
 }
