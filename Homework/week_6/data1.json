@@ -1,94 +1,117 @@
-{
-    "Boston Red Sox": {
+[
+    {
+        "team": "Boston Red Sox",
         "wins": 8,
         "losses": 4
     },
-    "San Francisco Giants": {
+    {
+        "team": "San Francisco Giants",
         "wins": 8,
         "losses": 12
     },
-    "Chicago White Sox": {
+    {
+        "team": "Chicago White Sox",
         "wins": 3,
         "losses": 2
     },
-    "Chicago Cubs": {
+    {
+        "team": "Chicago Cubs",
         "wins": 3,
         "losses": 8
     },
-    "Pittsburgh Pirates": {
+    {
+        "team": "Pittsburgh Pirates",
         "wins": 5,
         "losses": 2
     },
-    "Oakland Athletics": {
+    {
+        "team": "Oakland Athletics",
         "wins": 9,
         "losses": 5
     },
-    "Atlanta Braves": {
+    {
+        "team": "Atlanta Braves",
         "wins": 3,
         "losses": 6
     },
-    "Cincinnati Reds": {
+    {
+        "team": "Cincinnati Reds",
         "wins": 5,
         "losses": 4
     },
-    "Cleveland Indians": {
+    {
+        "team": "Cleveland Indians",
         "wins": 2,
         "losses": 4
     },
-    "New York Yankees": {
+    {
+        "team": "New York Yankees",
         "wins": 27,
         "losses": 13
     },
-    "Minnesota Twins": {
+    {
+        "team": "Minnesota Twins",
         "wins": 3,
         "losses": 3
     },
-    "St. Louis Cardinals": {
+    {
+        "team": "St. Louis Cardinals",
         "wins": 11,
         "losses": 8
     },
-    "Detroit Tigers": {
+    {
+        "team": "Detroit Tigers",
         "wins": 4,
         "losses": 7
     },
-    "Los Angeles Dodgers": {
+    {
+        "team": "Los Angeles Dodgers",
         "wins": 6,
         "losses": 13
     },
-    "Baltimore Orioles": {
+    {
+        "team": "Baltimore Orioles",
         "wins": 3,
         "losses": 4
     },
-    "New York Mets": {
+    {
+        "team": "New York Mets",
         "wins": 2,
         "losses": 3
     },
-    "Philadelphia Phillies": {
+    {
+        "team": "Philadelphia Phillies",
         "wins": 2,
         "losses": 5
     },
-    "Kansas City Royals": {
+    {
+        "team": "Kansas City Royals",
         "wins": 2,
         "losses": 2
     },
-    "Toronto Blue Jays": {
+    {
+        "team": "Toronto Blue Jays",
         "wins": 2,
         "losses": 0
     },
-    "Florida Marlins": {
+    {
+        "team": "Florida Marlins",
         "wins": 2,
         "losses": 0
     },
-    "Arizona Diamondbacks": {
+    {
+        "team": "Arizona Diamondbacks",
         "wins": 1,
         "losses": 0
     },
-    "Anaheim Angels": {
+    {
+        "team": "Anaheim Angels",
         "wins": 1,
         "losses": 0
     },
-    "Houston Astros": {
+    {
+        "team": "Houston Astros",
         "wins": 1,
         "losses": 1
     }
-}
+]
