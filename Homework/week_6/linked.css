@@ -1,0 +1,54 @@
+rect.bar {
+    fill: green;
+    margin-right: 2px;
+    stroke: black;
+}
+
+rect.sel {
+    fill: DarkGreen;
+    margin-right: 2px;
+    stroke: black;
+}
+
+rect.loss {
+    fill: Crimson;
+    margin-right: 2px;
+    stroke: black;
+}
+
+rect.losssel {
+    fill: Firebrick;
+    margin-right: 2px;
+    stroke:black;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+
+.axis text {
+    font-family: sans-serif;
+    font-size: 11px;
+}
+
+text.label {
+    font-size: 11px;
+}
+
+.mytooltip {
+  position:absolute;
+  text-align: center;
+  width: 50px;
+  height:auto;
+  background-color: #42BFF4;
+  border-radius: 10px;
+  color: black;
+  padding: 6px 12px;
+  z-index:3;
+}
+
+.mytooltip span {
+    display: block;
