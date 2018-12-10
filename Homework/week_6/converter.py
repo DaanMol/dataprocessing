@@ -35,7 +35,14 @@ def parse(reader):
         else:
             losercount[loser] += 1
 
-    return [winnercount, losercount]
+    teamScores = {}
+    for team in winnercount:
+        if team in losercount:
+            teamScores[team] = {"wins": winnercount[team], "losses": losercount[team]}
+        else:
+            teamScores[team] = {"wins": winnercount[team], "losses": 0}
+
+    return [teamScores]
 
 def parser2(reader):
     """
