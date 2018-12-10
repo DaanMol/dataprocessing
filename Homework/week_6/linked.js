@@ -7,6 +7,14 @@ wsh = "data1.json"
 // last season team stats
 laststats = "data2.json"
 
+d3.select("head").append("title").text("Linked views - Daan Molleman")
+d3.select("body").append("h1").text("Linked views")
+d3.select("body").append("h2").text("Daan Molleman - 11275820")
+d3.select("body").append("p").text("this stacked bar chart shows the amount of \
+                                    wins and losses in the world series for each\
+                                    MLB team since 1903")
+d3.select("body").append("h4").text("source: https://data.world/throwback-thurs/throwback-thursday-week-32-the-world-series")
+
 // define width and height
 var w = 1000
 var h = 450
@@ -200,11 +208,4 @@ function drawScales() {
        .style("text-anchor", "middle")
        .style("font-family", "Monospace")
        .text("Number of wins and losses");
-
-    // svg.selectAll(".label")
-    //    // .attr("y", 0)
-    //    //  .attr("x", 9)
-    //    //  .attr("dy", ".35em")
-    //     .attr("transform", "rotate(90)")
-    //     // .style("text-anchor", "start");
 }
