@@ -1,0 +1,242 @@
+{
+    "Boston": {
+        "runs": "876",
+        "hits": "1509",
+        "2nd": "355",
+        "3rd": "31",
+        "homeruns": "208",
+        "totalbase": "2550"
+    },
+    "NY Yankees": {
+        "runs": "851",
+        "hits": "1374",
+        "2nd": "269",
+        "3rd": "23",
+        "homeruns": "267",
+        "totalbase": "2490"
+    },
+    "Cleveland": {
+        "runs": "818",
+        "hits": "1447",
+        "2nd": "297",
+        "3rd": "19",
+        "homeruns": "216",
+        "totalbase": "2430"
+    },
+    "Oakland": {
+        "runs": "813",
+        "hits": "1407",
+        "2nd": "322",
+        "3rd": "20",
+        "homeruns": "227",
+        "totalbase": "2450"
+    },
+    "LA Dodgers": {
+        "runs": "804",
+        "hits": "1394",
+        "2nd": "296",
+        "3rd": "33",
+        "homeruns": "235",
+        "totalbase": "2461"
+    },
+    "Houston": {
+        "runs": "797",
+        "hits": "1390",
+        "2nd": "278",
+        "3rd": "18",
+        "homeruns": "205",
+        "totalbase": "2319"
+    },
+    "Colorado": {
+        "runs": "780",
+        "hits": "1418",
+        "2nd": "280",
+        "3rd": "42",
+        "homeruns": "210",
+        "totalbase": "2412"
+    },
+    "Washington": {
+        "runs": "771",
+        "hits": "1402",
+        "2nd": "284",
+        "3rd": "25",
+        "homeruns": "191",
+        "totalbase": "2309"
+    },
+    "Chicago Cubs": {
+        "runs": "761",
+        "hits": "1453",
+        "2nd": "286",
+        "3rd": "34",
+        "homeruns": "167",
+        "totalbase": "2308"
+    },
+    "Atlanta": {
+        "runs": "759",
+        "hits": "1433",
+        "2nd": "314",
+        "3rd": "29",
+        "homeruns": "175",
+        "totalbase": "2330"
+    },
+    "St. Louis": {
+        "runs": "759",
+        "hits": "1369",
+        "2nd": "248",
+        "3rd": "9",
+        "homeruns": "205",
+        "totalbase": "2250"
+    },
+    "Milwaukee": {
+        "runs": "754",
+        "hits": "1398",
+        "2nd": "252",
+        "3rd": "24",
+        "homeruns": "218",
+        "totalbase": "2352"
+    },
+    "Minnesota": {
+        "runs": "738",
+        "hits": "1379",
+        "2nd": "317",
+        "3rd": "22",
+        "homeruns": "166",
+        "totalbase": "2238"
+    },
+    "Texas": {
+        "runs": "737",
+        "hits": "1308",
+        "2nd": "266",
+        "3rd": "24",
+        "homeruns": "194",
+        "totalbase": "2204"
+    },
+    "LA Angels": {
+        "runs": "721",
+        "hits": "1323",
+        "2nd": "249",
+        "3rd": "23",
+        "homeruns": "214",
+        "totalbase": "2260"
+    },
+    "Tampa Bay": {
+        "runs": "716",
+        "hits": "1415",
+        "2nd": "274",
+        "3rd": "43",
+        "homeruns": "150",
+        "totalbase": "2225"
+    },
+    "Toronto": {
+        "runs": "709",
+        "hits": "1336",
+        "2nd": "320",
+        "3rd": "16",
+        "homeruns": "217",
+        "totalbase": "2339"
+    },
+    "Cincinnati": {
+        "runs": "696",
+        "hits": "1404",
+        "2nd": "251",
+        "3rd": "25",
+        "homeruns": "172",
+        "totalbase": "2221"
+    },
+    "Arizona": {
+        "runs": "693",
+        "hits": "1283",
+        "2nd": "259",
+        "3rd": "50",
+        "homeruns": "176",
+        "totalbase": "2170"
+    },
+    "Pittsburgh": {
+        "runs": "692",
+        "hits": "1381",
+        "2nd": "290",
+        "3rd": "38",
+        "homeruns": "157",
+        "totalbase": "2218"
+    },
+    "Seattle": {
+        "runs": "677",
+        "hits": "1402",
+        "2nd": "256",
+        "3rd": "32",
+        "homeruns": "176",
+        "totalbase": "2250"
+    },
+    "Philadelphia": {
+        "runs": "677",
+        "hits": "1270",
+        "2nd": "241",
+        "3rd": "30",
+        "homeruns": "186",
+        "totalbase": "2129"
+    },
+    "NY Mets": {
+        "runs": "676",
+        "hits": "1282",
+        "2nd": "265",
+        "3rd": "34",
+        "homeruns": "170",
+        "totalbase": "2125"
+    },
+    "Chicago Sox": {
+        "runs": "656",
+        "hits": "1332",
+        "2nd": "259",
+        "3rd": "40",
+        "homeruns": "182",
+        "totalbase": "2217"
+    },
+    "Kansas City": {
+        "runs": "638",
+        "hits": "1350",
+        "2nd": "283",
+        "3rd": "29",
+        "homeruns": "155",
+        "totalbase": "2156"
+    },
+    "Detroit": {
+        "runs": "630",
+        "hits": "1326",
+        "2nd": "284",
+        "3rd": "35",
+        "homeruns": "135",
+        "totalbase": "2085"
+    },
+    "Baltimore": {
+        "runs": "622",
+        "hits": "1317",
+        "2nd": "242",
+        "3rd": "15",
+        "homeruns": "188",
+        "totalbase": "2153"
+    },
+    "San Diego": {
+        "runs": "617",
+        "hits": "1289",
+        "2nd": "250",
+        "3rd": "30",
+        "homeruns": "162",
+        "totalbase": "2085"
+    },
+    "San Francisco": {
+        "runs": "603",
+        "hits": "1324",
+        "2nd": "255",
+        "3rd": "30",
+        "homeruns": "133",
+        "totalbase": "2038"
+    },
+    "Miami": {
+        "runs": "589",
+        "hits": "1303",
+        "2nd": "222",
+        "3rd": "24",
+        "homeruns": "128",
+        "totalbase": "1957"
+    }
+}
