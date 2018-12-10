@@ -13,7 +13,8 @@ d3.select("body").append("h2").text("Daan Molleman - 11275820")
 d3.select("body").append("p").text("this stacked bar chart shows the amount of \
                                     wins and losses in the world series for each\
                                     MLB team since 1903")
-d3.select("body").append("h4").text("source: https://data.world/throwback-thurs/throwback-thursday-week-32-the-world-series")
+d3.select("body").append("a").text("Source: data.world")
+                             .attr("href", "https://data.world/throwback-thurs/throwback-thursday-week-32-the-world-series")
 
 // define width and height
 var w = 1000
@@ -43,6 +44,7 @@ window.onload = function() {
       createScales(majorleague)
       drawScales()
       drawRect(majorleague)
+      drawLegend()
   })
 }
 
@@ -208,4 +210,30 @@ function drawScales() {
        .style("text-anchor", "middle")
        .style("font-family", "Monospace")
        .text("Number of wins and losses");
+}
+
+function drawLegend() {
+  /* draw a legend for the bar chart */
+
+  // select space to draw legend
+  legend = svg.append("g")
+              .attr("class","legend")
+              .attr("transform","translate(800,50)")
+
+  legend.append("text")
+        .attr("transform","translate(10,0)")
+        .text("wins")
+  legend.append("text")
+        .attr("transform","translate(12,20)")
+        .text("losses")
+  legend.append("rect")
+        .attr("transform","translate(-25,-15)")
+        .attr("width", 30)
+        .attr("height", 15)
+        .attr("class", "bar")
+  legend.append("rect")
+        .attr("transform","translate(-25, 7)")
+        .attr("width", 30)
+        .attr("height", 15)
+        .attr("class", "loss")
 }
