@@ -42,7 +42,7 @@ def parse(reader):
         else:
             teamScores[team] = {"wins": winnercount[team], "losses": 0}
 
-    return [teamScores]
+    return teamScores
 
 def parser2(reader):
     """
