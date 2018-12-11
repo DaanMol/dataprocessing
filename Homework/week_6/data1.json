@@ -1,11 +1,11 @@
 [
     {
-        "team": "Boston Red Sox",
+        "team": "Boston_Redsox",
         "wins": 8,
         "losses": 4
     },
     {
-        "team": "San Francisco Giants",
+        "team": "SanFrancisco_Giants",
         "wins": 8,
         "losses": 12
     },

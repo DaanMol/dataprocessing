@@ -1,179 +1,179 @@
 {
-    "Boston": {
+    "Boston_Redsox": {
         "hits": "1509",
         "2nd": "355",
         "3rd": "31",
         "homeruns": "208"
     },
-    "NY Yankees": {
+    "NewYork_Yankees": {
         "hits": "1374",
         "2nd": "269",
         "3rd": "23",
         "homeruns": "267"
     },
-    "Cleveland": {
+    "Cleveland_Indians": {
         "hits": "1447",
         "2nd": "297",
         "3rd": "19",
         "homeruns": "216"
     },
-    "Oakland": {
+    "Oakland_Athletics": {
         "hits": "1407",
         "2nd": "322",
         "3rd": "20",
         "homeruns": "227"
     },
-    "LA Dodgers": {
+    "LosAngeles_Dodgers": {
         "hits": "1394",
         "2nd": "296",
         "3rd": "33",
         "homeruns": "235"
     },
-    "Houston": {
+    "Houston_Astros": {
         "hits": "1390",
         "2nd": "278",
         "3rd": "18",
         "homeruns": "205"
     },
-    "Colorado": {
+    "Colorado_Rockies": {
         "hits": "1418",
         "2nd": "280",
         "3rd": "42",
         "homeruns": "210"
     },
-    "Washington": {
+    "Washington_Nationals": {
         "hits": "1402",
         "2nd": "284",
         "3rd": "25",
         "homeruns": "191"
     },
-    "Chicago Cubs": {
+    "Chicago_Cubs": {
         "hits": "1453",
         "2nd": "286",
         "3rd": "34",
         "homeruns": "167"
     },
-    "Atlanta": {
+    "Atlanta_Braves": {
         "hits": "1433",
         "2nd": "314",
         "3rd": "29",
         "homeruns": "175"
     },
-    "St. Louis": {
+    "StLouis_Cardinals": {
         "hits": "1369",
         "2nd": "248",
         "3rd": "9",
         "homeruns": "205"
     },
-    "Milwaukee": {
+    "Milwaukee_Brewers": {
         "hits": "1398",
         "2nd": "252",
         "3rd": "24",
         "homeruns": "218"
     },
-    "Minnesota": {
+    "Minnesota_Twins": {
         "hits": "1379",
         "2nd": "317",
         "3rd": "22",
         "homeruns": "166"
     },
-    "Texas": {
+    "Texas_Rangers": {
         "hits": "1308",
         "2nd": "266",
         "3rd": "24",
         "homeruns": "194"
     },
-    "LA Angels": {
+    "LosAngeles_Angels": {
         "hits": "1323",
         "2nd": "249",
         "3rd": "23",
         "homeruns": "214"
     },
-    "Tampa Bay": {
+    "TampaBay_Rays": {
         "hits": "1415",
         "2nd": "274",
         "3rd": "43",
         "homeruns": "150"
     },
-    "Toronto": {
+    "Toronto_Blue_Jays": {
         "hits": "1336",
         "2nd": "320",
         "3rd": "16",
         "homeruns": "217"
     },
-    "Cincinnati": {
+    "Cincinnati_Reds": {
         "hits": "1404",
         "2nd": "251",
         "3rd": "25",
         "homeruns": "172"
     },
-    "Arizona": {
+    "Arizona_Diamondbacks": {
         "hits": "1283",
         "2nd": "259",
         "3rd": "50",
         "homeruns": "176"
     },
-    "Pittsburgh": {
+    "Pittsburgh_Pirates": {
         "hits": "1381",
         "2nd": "290",
         "3rd": "38",
         "homeruns": "157"
     },
-    "Seattle": {
+    "Seattle_Mariners": {
         "hits": "1402",
         "2nd": "256",
         "3rd": "32",
         "homeruns": "176"
     },
-    "Philadelphia": {
+    "Philadelphia_Phillies": {
         "hits": "1270",
         "2nd": "241",
         "3rd": "30",
         "homeruns": "186"
     },
-    "NY Mets": {
+    "NewYork_Mets": {
         "hits": "1282",
         "2nd": "265",
         "3rd": "34",
         "homeruns": "170"
     },
-    "Chicago Sox": {
+    "Chicago_White_Sox": {
         "hits": "1332",
         "2nd": "259",
         "3rd": "40",
         "homeruns": "182"
     },
-    "Kansas City": {
+    "Kansas_City_Royals": {
         "hits": "1350",
         "2nd": "283",
         "3rd": "29",
         "homeruns": "155"
     },
-    "Detroit": {
+    "Detroit_Tigers": {
         "hits": "1326",
         "2nd": "284",
         "3rd": "35",
         "homeruns": "135"
     },
-    "Baltimore": {
+    "Baltimore_Orioles": {
         "hits": "1317",
         "2nd": "242",
         "3rd": "15",
         "homeruns": "188"
     },
-    "San Diego": {
+    "San_Diego_Padres": {
         "hits": "1289",
         "2nd": "250",
         "3rd": "30",
         "homeruns": "162"
     },
-    "San Francisco": {
+    "SanFrancisco_Giants": {
         "hits": "1324",
         "2nd": "255",
         "3rd": "30",
         "homeruns": "133"
     },
-    "Miami": {
+    "Miami_Marlins": {
         "hits": "1303",
         "2nd": "222",
         "3rd": "24",
