@@ -82,3 +82,8 @@ text.label {
 
 .mytooltip span {
     display: block;
+}
+
+image {
+   fill: transparent;
+}

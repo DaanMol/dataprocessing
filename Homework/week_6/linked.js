@@ -1,6 +1,8 @@
-// Daan Molleman
-// 11275820
-// Linked baseball View
+/* Data Processing
+ * Daan Molleman
+ * 11275820
+ * Linked baseball View
+ */
 
 // world series history stats
 wsh = "data1.json"
@@ -12,7 +14,7 @@ d3.select("body").append("h1").text("Linked views")
 d3.select("body").append("h2").text("Daan Molleman - 11275820")
 d3.select("body").append("p").text("this stacked bar chart shows the amount of \
                                     wins and losses in the world series for each\
-                                    MLB team since 1903")
+                                    MLB team from 1903 to 2017")
 d3.select("body").append("a").text("Source: data.world")
                              .attr("href", "https://data.world/throwback-thurs/throwback-thursday-week-32-the-world-series")
 d3.select('body').append("h4")
@@ -56,9 +58,8 @@ window.onload = function() {
   })
 
   d3.json(laststats).then(function(data) {
-      console.log(data)
       window.laststats = data
-      drawPie("Boston")
+      drawPie("Boston_Redsox")
       drawLogo()
   })
 }
@@ -123,7 +124,7 @@ function drawRect(teams) {
        .on("mousemove", function(d) {
           d3.select(this)
           myTool
-            .html("<div id='thumbnail'><span>" + d["team"] + "\n" + d["wins"] + "</div>")
+            .html("<div id='thumbnail'><span>" + d["team"].replace("_", " ") + "\n" + d["wins"] + "</div>")
             .style("left", (d3.event.pageX - 60) + "px")
             .style("top", (d3.event.pageY - 65) + "px")
        })
@@ -138,6 +139,10 @@ function drawRect(teams) {
               .duration(300)
               .style("opacity", "0")
               .style("display", "none")
+       })
+       .on("click", function(d) {
+          userInput = d["team"]
+          updatePie(userInput)
        })
 
    var lose = svg.selectAll(".loss")
@@ -171,12 +176,16 @@ function drawRect(teams) {
                    .style("opacity", "1")
                    .style("display", "block")
          })
+         .on("click", function(d) {
+            userInput = d["team"]
+            updatePie(userInput)
+         })
 
          // keep the tooltip above the mouse when mouse is on bar
          .on("mousemove", function(d) {
             d3.select(this)
             myTool
-              .html("<div id='thumbnail'><span>" + d["team"] + "\n" + d["losses"] + "</div>")
+              .html("<div id='thumbnail'><span>" + d["team"].replace("_", " ") + "\n" + d["losses"] + "</div>")
               .style("left", (d3.event.pageX - 60) + "px")
               .style("top", (d3.event.pageY - 65) + "px")
          })
@@ -264,11 +273,17 @@ function drawPie(userInput) {
   var group = svg2.append("g")
               .attr("transform", "translate(400,400)");
 
+  svg2.append("text")
+      .attr("transform", "translate(100,100)")
+      .attr("class", "pieTitle")
+      .text(userInput.replace("_", " "))
+
   var arc = d3.arc()
               .innerRadius(200)
               .outerRadius(r)
 
   var pie = d3.pie()
+            .padAngle(.01)
             .value(function(d) { return data[d] });
 
   var arcs = group.selectAll("arc")
@@ -277,24 +292,35 @@ function drawPie(userInput) {
                 .append("g") //append a group for each data element
                 .attr("class","arc");
 
+  // draw around arcs
   arcs.append("path")
         .attr("d", arc)
         .attr("fill", function(d, i) {return color[i]})
         .attr("stroke", "black");
 
+  // label each donut segment
   arcs.append("text")
         .attr("transform",function(d) {return "translate(" + arc.centroid(d) + ")";})
         .text(function(d) { return d.data} );
-
-  // console.dir(pie(data));
-
 }
 
 function drawLogo() {
+  /* Draw the logo of the team */
+  userInput = "Boston_Redsox"
   var imgs = svg2.append("image")
-                .attr("xlink:href", "http://www.capsinfo.com/images/MLB_Team_Logos/Boston_Redsox.png")
+                .attr("xlink:href", "http://www.capsinfo.com/images/MLB_Team_Logos/" + userInput + ".png")
                 .attr("x", "310")
                 .attr("y", "300")
                 .attr("width", "200")
                 .attr("height", "200");
+}
+
+function updatePie(userInput) {
+  /* update the pie graph according to user selection */
+
+  svg2.selectAll("image")
+      .attr("xlink:href", "http://www.capsinfo.com/images/MLB_Team_Logos/" + userInput + ".png")
+
+  let data = laststats[userInput]
+
 }
