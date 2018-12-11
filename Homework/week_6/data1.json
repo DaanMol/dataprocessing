@@ -85,9 +85,9 @@
         "losses": 5
     },
     {
-        "team": "",
-        "wins": 1,
-        "losses": 0
+        "team": "KansasCity_Royals",
+        "wins": 2,
+        "losses": 2
     },
     {
         "team": "Toronto_Blue_Jays",
@@ -108,11 +108,6 @@
         "team": "LosAngeles_Angels",
         "wins": 1,
         "losses": 0
-    },
-    {
-        "team": "KansasCity_Royals",
-        "wins": 1,
-        "losses": 2
     },
     {
         "team": "Houston_Astros",
