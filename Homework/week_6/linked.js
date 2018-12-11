@@ -15,11 +15,14 @@ d3.select("body").append("p").text("this stacked bar chart shows the amount of \
                                     MLB team since 1903")
 d3.select("body").append("a").text("Source: data.world")
                              .attr("href", "https://data.world/throwback-thurs/throwback-thursday-week-32-the-world-series")
+d3.select('body').append("h4")
 
 // define width and height
-var w = 1000
-var h = 450
-var margins = {left:40, right:20, upper:20, lower:20, bars:4}
+var w = 1000;
+var h = 450;
+var w2 = 1000;
+var h2 = 1000;
+var margins = {left:50, right:20, upper:20, lower:20, bars:4}
 
 // create variable for quick tooltip access
 var myTool = d3.select("body")
@@ -32,7 +35,12 @@ var myTool = d3.select("body")
 var svg = d3.selectAll("body")
             .append("svg")
             .attr("width", w)
-            .attr("height", h)
+            .attr("height", h);
+
+var svg2 = d3.selectAll("body")
+             .append("svg")
+             .attr("width", w2)
+             .attr("height", h2);
 
 // var requests = [d3.json(wsh), d3.json(laststats)];
 
@@ -45,6 +53,13 @@ window.onload = function() {
       drawScales()
       drawRect(majorleague)
       drawLegend()
+  })
+
+  d3.json(laststats).then(function(data) {
+      console.log(data)
+      window.laststats = data
+      drawPie("Boston")
+      drawLogo()
   })
 }
 
@@ -110,7 +125,7 @@ function drawRect(teams) {
           myTool
             .html("<div id='thumbnail'><span>" + d["team"] + "\n" + d["wins"] + "</div>")
             .style("left", (d3.event.pageX - 60) + "px")
-            .style("top", (d3.event.pageY - 60) + "px")
+            .style("top", (d3.event.pageY - 65) + "px")
        })
 
        // remove tooltip and restore colour
@@ -163,7 +178,7 @@ function drawRect(teams) {
             myTool
               .html("<div id='thumbnail'><span>" + d["team"] + "\n" + d["losses"] + "</div>")
               .style("left", (d3.event.pageX - 60) + "px")
-              .style("top", (d3.event.pageY - 60) + "px")
+              .style("top", (d3.event.pageY - 65) + "px")
          })
 
          // remove tooltip and restore colour
@@ -236,4 +251,54 @@ function drawLegend() {
         .attr("width", 30)
         .attr("height", 15)
         .attr("class", "loss")
+}
+
+function drawPie(userInput) {
+  var data = laststats[userInput],
+    r = 300,
+    color = d3.scaleOrdinal()
+           .range(["red","blue","orange"]);
+
+  statNames = Object.keys(data)
+  console.log(statNames)
+
+  var group = svg2.append("g")
+              .attr("transform", "translate(400,400)");
+
+  var arc = d3.arc()
+              .innerRadius(200)
+              .outerRadius(r)
+
+  var pie = d3.pie()
+            .value(function(d) {
+              console.log(data[d])
+              return data[d]
+            });
+
+  var arcs = group.selectAll("arc")
+              .data(pie(statNames)) // binding data to our (update) selection, but we first pass it through our pie layout function
+              .enter()
+                .append("g") //append a group for each data element
+                .attr("class","arc");
+
+  arcs.append("path")
+        .attr("d", arc)
+        .attr("fill", function(d) {return color(data[d])})
+        .attr("stroke", "black");
+
+  arcs.append("text")
+        .attr("transform",function(d) {return "translate(" + arc.centroid(data[d]) + ")";})
+        .text(function(d) { return d.data} );
+
+  // console.dir(pie(data));
+
+}
+
+function drawLogo() {
+  var imgs = svg2.append("image")
+                .attr("xlink:href", "logos/Boston_Redsox.png")
+                .attr("x", "310")
+                .attr("y", "300")
+                .attr("width", "200")
+                .attr("height", "200");
 }
