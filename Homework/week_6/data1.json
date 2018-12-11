@@ -113,5 +113,30 @@
         "team": "Houston Astros",
         "wins": 1,
         "losses": 1
+    },
+    {
+        "team": "Milwaukee Brewers",
+        "wins": 0,
+        "losses": 1
+    },
+    {
+        "team": "San Diego Padres",
+        "wins": 0,
+        "losses": 2
+    },
+    {
+        "team": "Colorado Rockies",
+        "wins": 0,
+        "losses": 1
+    },
+    {
+        "team": "Tampa Bay Rays",
+        "wins": 0,
+        "losses": 1
+    },
+    {
+        "team": "Texas Rangers",
+        "wins": 0,
+        "losses": 2
     }
 ]

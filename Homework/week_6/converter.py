@@ -48,6 +48,9 @@ def parse(reader):
             teamScores.append({"team": team, "wins": winnercount[team], "losses": losercount[team]})
         else:
             teamScores.append({"team": team, "wins": winnercount[team], "losses": 0})
+    for team in losercount:
+        if team not in winnercount:
+            teamScores.append(({"team": team, "wins": 0, "losses": losercount[team]}))
 
     return teamScores
 

@@ -256,8 +256,7 @@ function drawLegend() {
 function drawPie(userInput) {
   var data = laststats[userInput],
     r = 300,
-    color = d3.scaleOrdinal()
-           .range(["red","blue","orange"]);
+    color = ["red","blue","orange","green"];
 
   statNames = Object.keys(data)
   console.log(statNames)
@@ -270,10 +269,7 @@ function drawPie(userInput) {
               .outerRadius(r)
 
   var pie = d3.pie()
-            .value(function(d) {
-              console.log(data[d])
-              return data[d]
-            });
+            .value(function(d) { return data[d] });
 
   var arcs = group.selectAll("arc")
               .data(pie(statNames)) // binding data to our (update) selection, but we first pass it through our pie layout function
@@ -283,11 +279,11 @@ function drawPie(userInput) {
 
   arcs.append("path")
         .attr("d", arc)
-        .attr("fill", function(d) {return color(data[d])})
+        .attr("fill", function(d, i) {return color[i]})
         .attr("stroke", "black");
 
   arcs.append("text")
-        .attr("transform",function(d) {return "translate(" + arc.centroid(data[d]) + ")";})
+        .attr("transform",function(d) {return "translate(" + arc.centroid(d) + ")";})
         .text(function(d) { return d.data} );
 
   // console.dir(pie(data));
@@ -296,7 +292,7 @@ function drawPie(userInput) {
 
 function drawLogo() {
   var imgs = svg2.append("image")
-                .attr("xlink:href", "logos/Boston_Redsox.png")
+                .attr("xlink:href", "http://www.capsinfo.com/images/MLB_Team_Logos/Boston_Redsox.png")
                 .attr("x", "310")
                 .attr("y", "300")
                 .attr("width", "200")
