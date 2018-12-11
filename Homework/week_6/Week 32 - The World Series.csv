@@ -75,12 +75,12 @@
 1977,American League,NewYork_Yankees,NewYork_Yankees,Billy Martin,4–2,National League,LosAngeles_Dodgers,LosAngeles_Dodgers,Tommy Lasorda
 1978,American League,NewYork_Yankees,NewYork_Yankees,Bob Lemon,4–2,National League,LosAngeles_Dodgers,LosAngeles_Dodgers,Tommy Lasorda
 1979,National League,Pittsburgh_Pirates,Pittsburgh_Pirates,Chuck Tanner,4–3,American League,Baltimore_Orioles,Baltimore_Orioles,Earl Weaver
-1980,National League,Philadelphia_Phillies,Philadelphia_Phillies,Dallas Green,4–2,American League,Kansas_City_Royals,Kansas_City_Royals,Jim Frey
+1980,National League,Philadelphia_Phillies,Philadelphia_Phillies,Dallas Green,4–2,American League,KansasCity_Royals,KansasCity_Royals,Jim Frey
 1981,National League,LosAngeles_Dodgers,LosAngeles_Dodgers,Tommy Lasorda,4–2,American League,NewYork_Yankees,NewYork_Yankees,Bob Lemon
 1982,National League,StLouis_Cardinals,StLouis_Cardinals,Whitey Herzog,4–3,American League,Milwaukee_Brewers,Milwaukee_Brewers,Harvey Kuenn
 1983,American League,Baltimore_Orioles,Baltimore_Orioles,Joe Altobelli,4–1,National League,Philadelphia_Phillies,Philadelphia_Phillies,Paul Owens
-1984,American League,Detroit_Tigers,Detroit_Tigers,Sparky Anderson,4–1,National League,San_Diego_Padres,San_Diego_Padres,Dick Williams
-1985,American League,Kansas_City_Royals,Kansas_City_Royals,Dick Howser,4–3,National League,StLouis_Cardinals,StLouis_Cardinals,Whitey Herzog
+1984,American League,Detroit_Tigers,Detroit_Tigers,Sparky Anderson,4–1,National League,SanDiego_Padres,SanDiego_Padres,Dick Williams
+1985,American League,KansasCity_Royals,,Dick Howser,4–3,National League,StLouis_Cardinals,StLouis_Cardinals,Whitey Herzog
 1986,National League,NewYork_Mets,NewYork_Mets,Davey Johnson,4–3,American League,Boston_Redsox,Boston_Redsox,John McNamara
 1987,American League,Minnesota_Twins,Minnesota_Twins,Tom Kelly,4–3,National League,StLouis_Cardinals,StLouis_Cardinals,Whitey Herzog
 1988,National League,LosAngeles_Dodgers,LosAngeles_Dodgers,Tommy Lasorda,4–1,American League,Oakland_Athletics,Oakland_Athletics,Tony La Russa
@@ -91,13 +91,13 @@
 1993,American League,Toronto_Blue_Jays,Toronto_Blue_Jays,Cito Gaston,4–2,National League,Philadelphia_Phillies,Philadelphia_Phillies,Jim Fregosi
 1995,National League,Atlanta_Braves,Atlanta_Braves,Bobby Cox,4–2,American League,Cleveland_Indians,Cleveland_Indians,Mike Hargrove
 1996,American League,NewYork_Yankees,NewYork_Yankees,Joe Torre,4–2,National League,Atlanta_Braves,Atlanta_Braves,Bobby Cox
-1997,National League,Florida Marlins,Florida Marlins,Jim Leyland,4–3,American League,Cleveland_Indians,Cleveland_Indians,Mike Hargrove
-1998,American League,NewYork_Yankees,NewYork_Yankees,Joe Torre,4–0,National League,San_Diego_Padres,San_Diego_Padres,Bruce Bochy
+1997,National League,Miami_Marlins,Miami_Marlins,Jim Leyland,4–3,American League,Cleveland_Indians,Cleveland_Indians,Mike Hargrove
+1998,American League,NewYork_Yankees,NewYork_Yankees,Joe Torre,4–0,National League,SanDiego_Padres,SanDiego_Padres,Bruce Bochy
 1999,American League,NewYork_Yankees,NewYork_Yankees,Joe Torre,4–0,National League,Atlanta_Braves,Atlanta_Braves,Bobby Cox
 2000,American League,NewYork_Yankees,NewYork_Yankees,Joe Torre,4–1,National League,NewYork_Mets,NewYork_Mets,Bobby Valentine
 2001,National League,Arizona_Diamondbacks,Arizona_Diamondbacks,Bob Brenly,4–3,American League,NewYork_Yankees,NewYork_Yankees,Joe Torre
 2002,American League,LosAngeles_Angels,LosAngeles_Angels,Mike Scioscia,4–3,National League,SanFrancisco_Giants,SanFrancisco_Giants,Dusty Baker
-2003,National League,Florida Marlins,Florida Marlins,Jack McKeon,4–2,American League,NewYork_Yankees,NewYork_Yankees,Joe Torre
+2003,National League,Miami_Marlins,Miami_Marlins,Jack McKeon,4–2,American League,NewYork_Yankees,NewYork_Yankees,Joe Torre
 2004,American League,Boston_Redsox,Boston_Redsox,Terry Francona,4–0,National League,StLouis_Cardinals,StLouis_Cardinals,Tony La Russa
 2005,American League,Chicago_White_Sox,Chicago_White_Sox,Ozzie Guillén,4–0,National League,Houston_Astros,Houston_Astros,Phil Garner
 2006,National League,StLouis_Cardinals,StLouis_Cardinals,Tony La Russa,4–1,American League,Detroit_Tigers,Detroit_Tigers,Jim Leyland
@@ -108,7 +108,7 @@
 2011,National League,StLouis_Cardinals,StLouis_Cardinals,Tony La Russa,4–3,American League,Texas_Rangers,Texas_Rangers,Ron Washington
 2012,National League,SanFrancisco_Giants,SanFrancisco_Giants,Bruce Bochy,4–0,American League,Detroit_Tigers,Detroit_Tigers,Jim Leyland
 2013,American League,Boston_Redsox,Boston_Redsox,John Farrell,4–2,National League,StLouis_Cardinals,StLouis_Cardinals,Mike Matheny
-2014,National League,SanFrancisco_Giants,SanFrancisco_Giants,Bruce Bochy,4–3,American League,Kansas_City_Royals,Kansas_City_Royals,Ned Yost
-2015,American League,Kansas_City_Royals,Kansas_City_Royals,Ned Yost,4–1,National League,NewYork_Mets,NewYork_Mets,Terry Collins
+2014,National League,SanFrancisco_Giants,SanFrancisco_Giants,Bruce Bochy,4–3,American League,KansasCity_Royals,KansasCity_Royals,Ned Yost
+2015,American League,KansasCity_Royals,KansasCity_Royals,Ned Yost,4–1,National League,NewYork_Mets,NewYork_Mets,Terry Collins
 2016,National League,Chicago_Cubs,Chicago_Cubs,Joe Maddon,4–3,American League,Cleveland_Indians,Cleveland_Indians,Terry Francona
 2017,American League,Houston_Astros,Houston_Astros,A. J. Hinch,4–3,National League,LosAngeles_Dodgers,LosAngeles_Dodgers,Dave Roberts

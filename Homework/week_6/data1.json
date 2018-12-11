@@ -85,9 +85,9 @@
         "losses": 5
     },
     {
-        "team": "Kansas_City_Royals",
-        "wins": 2,
-        "losses": 2
+        "team": "",
+        "wins": 1,
+        "losses": 0
     },
     {
         "team": "Toronto_Blue_Jays",
@@ -95,7 +95,7 @@
         "losses": 0
     },
     {
-        "team": "Florida Marlins",
+        "team": "Miami_Marlins",
         "wins": 2,
         "losses": 0
     },
@@ -110,6 +110,11 @@
         "losses": 0
     },
     {
+        "team": "KansasCity_Royals",
+        "wins": 1,
+        "losses": 2
+    },
+    {
         "team": "Houston_Astros",
         "wins": 1,
         "losses": 1
@@ -120,7 +125,7 @@
         "losses": 1
     },
     {
-        "team": "San_Diego_Padres",
+        "team": "SanDiego_Padres",
         "wins": 0,
         "losses": 2
     },
