@@ -4,6 +4,9 @@
  * Linked baseball View
  */
 
+/* Interacivity source : https://www.competa.com/blog/how-create-tooltips-in-d3-js/
+                     By: Maria Cristina Di Termine */
+
 // world series history stats
 wsh = "data1.json"
 // last season team stats
@@ -65,6 +68,7 @@ window.onload = function() {
 }
 
 function createScales(set1) {
+  /* Create scales */
   window.xScale = d3.scaleLinear()
                     .domain([0, Object.values(set1).length])
                     .range([margins.left, w - margins.right]);
@@ -87,7 +91,9 @@ function calc(set, stat) {
 }
 
 function drawRect(teams) {
+  /* Draw the bar chart*/
 
+  // create rect for quick access
   var rects = svg.selectAll("rect")
                  .data(teams)
                  .enter()
@@ -244,6 +250,7 @@ function drawLegend() {
               .attr("class","legend")
               .attr("transform","translate(800,50)")
 
+  // insert text and rects for legend
   legend.append("text")
         .attr("transform","translate(10,0)")
         .text("wins")
@@ -263,16 +270,22 @@ function drawLegend() {
 }
 
 function drawPie(userInput) {
+  /* Draw the donut graph
+     The first data shown is for the Red Sox, since they won the first and
+     also the last iteration of the world series */
+
+  // declare the selectd data and chart properties
   var data = laststats[userInput],
-    r = 300,
-    color = ["red","blue","orange","green"];
+      r = 300,
+      color = ["red","blue","orange","green"];
+      statNames = Object.keys(data)
 
-  statNames = Object.keys(data)
-  console.log(statNames)
-
+  // create a group for the chart segments
   var group = svg2.append("g")
-              .attr("transform", "translate(400,400)");
+              .attr("transform", "translate(400,400)")
+              .attr("class", "group");
 
+  // insert a title
   svg2.append("text")
       .attr("transform", "translate(100,100)")
       .attr("class", "pieTitle")
@@ -286,21 +299,24 @@ function drawPie(userInput) {
             .padAngle(.01)
             .value(function(d) { return data[d] });
 
+  // bind data and append a group for each segment
   var arcs = group.selectAll("arc")
-              .data(pie(statNames)) // binding data to our (update) selection, but we first pass it through our pie layout function
+              .data(pie(statNames))
               .enter()
-                .append("g") //append a group for each data element
+                .append("g")
                 .attr("class","arc");
 
   // draw around arcs
   arcs.append("path")
         .attr("d", arc)
         .attr("fill", function(d, i) {return color[i]})
-        .attr("stroke", "black");
+        .attr("stroke", "black")
+        .attr("class", "path");
 
   // label each donut segment
   arcs.append("text")
         .attr("transform",function(d) {return "translate(" + arc.centroid(d) + ")";})
+        .attr("class", "label")
         .text(function(d) { return d.data} );
 }
 
@@ -321,6 +337,43 @@ function updatePie(userInput) {
   svg2.selectAll("image")
       .attr("xlink:href", "http://www.capsinfo.com/images/MLB_Team_Logos/" + userInput + ".png")
 
-  let data = laststats[userInput]
+  svg2.selectAll(".pieTitle")
+      .text(userInput.replace("_", " "))
 
+  var data = laststats[userInput],
+      r = 300,
+      color = ["red","blue","orange","green"];
+      statNames = Object.keys(data)
+
+  var arc = d3.arc()
+              .innerRadius(200)
+              .outerRadius(r)
+
+  var pie = d3.pie()
+              .padAngle(.01)
+              .value(function(d) { return data[d] });
+
+  var group = svg2.selectAll(".group")
+
+
+  var arcs = group.selectAll(".arc")
+                  .data(pie(statNames))
+                  .enter()
+                  .selectAll("g")
+
+  // draw around arcs
+  arcs.selectAll(".path")
+        .transition()
+        .duration(300)
+        .attr("d", arc)
+        .attr("fill", function(d, i) {return color[i]})
+        .attr("stroke", "black")
+        .attr("class", "path");
+
+  // label each donut segment
+  arcs.selectAll(".label")
+        .transition()
+        .duration(300)
+        .attr("transform",function(d) {return "translate(" + arc.centroid(d) + ")";})
+        .text(function(d) { return d.data} );
 }
