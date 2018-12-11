@@ -10,87 +10,87 @@
         "losses": 12
     },
     {
-        "team": "Chicago White Sox",
+        "team": "Chicago_White_Sox",
         "wins": 3,
         "losses": 2
     },
     {
-        "team": "Chicago Cubs",
+        "team": "Chicago_Cubs",
         "wins": 3,
         "losses": 8
     },
     {
-        "team": "Pittsburgh Pirates",
+        "team": "Pittsburgh_Pirates",
         "wins": 5,
         "losses": 2
     },
     {
-        "team": "Oakland Athletics",
+        "team": "Oakland_Athletics",
         "wins": 9,
         "losses": 5
     },
     {
-        "team": "Atlanta Braves",
+        "team": "Atlanta_Braves",
         "wins": 3,
         "losses": 6
     },
     {
-        "team": "Cincinnati Reds",
+        "team": "Cincinnati_Reds",
         "wins": 5,
         "losses": 4
     },
     {
-        "team": "Cleveland Indians",
+        "team": "Cleveland_Indians",
         "wins": 2,
         "losses": 4
     },
     {
-        "team": "New York Yankees",
+        "team": "NewYork_Yankees",
         "wins": 27,
         "losses": 13
     },
     {
-        "team": "Minnesota Twins",
+        "team": "Minnesota_Twins",
         "wins": 3,
         "losses": 3
     },
     {
-        "team": "St. Louis Cardinals",
+        "team": "StLouis_Cardinals",
         "wins": 11,
         "losses": 8
     },
     {
-        "team": "Detroit Tigers",
+        "team": "Detroit_Tigers",
         "wins": 4,
         "losses": 7
     },
     {
-        "team": "Los Angeles Dodgers",
+        "team": "LosAngeles_Dodgers",
         "wins": 6,
         "losses": 13
     },
     {
-        "team": "Baltimore Orioles",
+        "team": "Baltimore_Orioles",
         "wins": 3,
         "losses": 4
     },
     {
-        "team": "New York Mets",
+        "team": "NewYork_Mets",
         "wins": 2,
         "losses": 3
     },
     {
-        "team": "Philadelphia Phillies",
+        "team": "Philadelphia_Phillies",
         "wins": 2,
         "losses": 5
     },
     {
-        "team": "Kansas City Royals",
+        "team": "Kansas_City_Royals",
         "wins": 2,
         "losses": 2
     },
     {
-        "team": "Toronto Blue Jays",
+        "team": "Toronto_Blue_Jays",
         "wins": 2,
         "losses": 0
     },
@@ -100,42 +100,42 @@
         "losses": 0
     },
     {
-        "team": "Arizona Diamondbacks",
+        "team": "Arizona_Diamondbacks",
         "wins": 1,
         "losses": 0
     },
     {
-        "team": "Anaheim Angels",
+        "team": "LosAngeles_Angels",
         "wins": 1,
         "losses": 0
     },
     {
-        "team": "Houston Astros",
+        "team": "Houston_Astros",
         "wins": 1,
         "losses": 1
     },
     {
-        "team": "Milwaukee Brewers",
+        "team": "Milwaukee_Brewers",
         "wins": 0,
         "losses": 1
     },
     {
-        "team": "San Diego Padres",
+        "team": "San_Diego_Padres",
         "wins": 0,
         "losses": 2
     },
     {
-        "team": "Colorado Rockies",
+        "team": "Colorado_Rockies",
         "wins": 0,
         "losses": 1
     },
     {
-        "team": "Tampa Bay Rays",
+        "team": "TampaBay_Rays",
         "wins": 0,
         "losses": 1
     },
     {
-        "team": "Texas Rangers",
+        "team": "Texas_Rangers",
         "wins": 0,
         "losses": 2
     }
