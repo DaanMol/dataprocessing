@@ -48,8 +48,6 @@ var svg2 = d3.selectAll("body")
              .attr("width", w2)
              .attr("height", h2);
 
-// var requests = [d3.json(wsh), d3.json(laststats)];
-
 window.onload = function() {
 
   // request api
@@ -58,13 +56,14 @@ window.onload = function() {
       createScales(majorleague)
       drawScales()
       drawRect(majorleague)
-      drawLegend()
+      drawLegend(1)
   })
 
   d3.json(laststats).then(function(data) {
       window.laststats = data
       drawPie("Boston_Redsox")
       drawLogo()
+      drawLegend(2)
   })
 }
 
@@ -243,31 +242,58 @@ function drawScales() {
        .text("Number of wins and losses");
 }
 
-function drawLegend() {
+function drawLegend(nr) {
   /* draw a legend for the bar chart */
 
   // select space to draw legend
-  legend = svg.append("g")
-              .attr("class","legend")
-              .attr("transform","translate(800,50)")
+  if (nr == 1) {
+    legend = svg.append("g")
+                .attr("class","legend")
+                .attr("transform","translate(800,50)")
 
-  // insert text and rects for legend
-  legend.append("text")
-        .attr("transform","translate(10,0)")
-        .text("wins")
-  legend.append("text")
-        .attr("transform","translate(12,20)")
-        .text("losses")
-  legend.append("rect")
-        .attr("transform","translate(-25,-15)")
-        .attr("width", 30)
-        .attr("height", 15)
-        .attr("class", "bar")
-  legend.append("rect")
-        .attr("transform","translate(-25, 7)")
-        .attr("width", 30)
-        .attr("height", 15)
-        .attr("class", "loss")
+    // insert text and rects for legend
+    legend.append("text")
+          .attr("transform","translate(10,0)")
+          .text("wins")
+    legend.append("text")
+          .attr("transform","translate(12,20)")
+          .text("losses")
+    legend.append("rect")
+          .attr("transform","translate(-25,-15)")
+          .attr("width", 30)
+          .attr("height", 15)
+          .attr("class", "bar")
+    legend.append("rect")
+          .attr("transform","translate(-25, 7)")
+          .attr("width", 30)
+          .attr("height", 15)
+          .attr("class", "loss")
+  } else {
+
+    // create legend scale for pie chart
+    var ordinal = d3.scaleOrdinal()
+    .domain(["Hits", "2nd base", "3rd base", "Homerun"])
+    .range(["red","blue","orange","green"]);
+
+    svg2.append("g")
+    .attr("class", "legendOrdinal")
+    .attr("transform", "translate(750,100)");
+
+    var legendOrdinal = d3.legendColor()
+
+    .shape("path", d3.symbol().type(d3.symbolCircle).size(150)())
+    .shapePadding(10)
+
+    //use cellFilter to hide the "e" cell
+    .cellFilter(function(d){ return d.label !== "e" })
+    .scale(ordinal);
+
+    // draw the legend
+    svg2.select(".legendOrdinal")
+    .call(legendOrdinal);
+
+
+  }
 }
 
 function drawPie(userInput) {
@@ -309,7 +335,7 @@ function drawPie(userInput) {
                 .on("mouseover", function(d) {
                    d3.select(this)
                         .style("cursor", "pointer")
-                        .attr("class", "losssel")
+                        .style("stroke-width", "3px")
                         myTool
                           .transition()
                           .duration(300)
@@ -330,7 +356,7 @@ function drawPie(userInput) {
                 .on("mouseout", function(d, i) {
                    d3.select(this)
                      .style("cursor", "normal")
-                     .attr("class", "loss")
+                     .style("stroke-width", "1px")
                      myTool
                        .transition()
                        .duration(300)
