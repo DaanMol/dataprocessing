@@ -87,3 +87,8 @@ text.label {
 image {
    fill: transparent;
 }
+
+* {
+text-align: center !important;
+margin: 20 !important;
+}

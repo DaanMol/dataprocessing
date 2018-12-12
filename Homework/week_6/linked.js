@@ -38,6 +38,7 @@ var myTool = d3.select("body")
 
 // create variable for quick svg acces
 var svg = d3.selectAll("body")
+            .style("background-color", "#d0dce5") //#F8E5D7 // #bac5d1
             .append("svg")
             .attr("width", w)
             .attr("height", h);
@@ -281,7 +282,7 @@ function drawPie(userInput) {
       statNames = Object.keys(data)
 
   // create a group for the chart segments
-  var group = svg2.append("g")
+  group = svg2.append("g")
               .attr("transform", "translate(400,400)")
               .attr("class", "group");
 
@@ -291,27 +292,57 @@ function drawPie(userInput) {
       .attr("class", "pieTitle")
       .text(userInput.replace("_", " "))
 
-  var arc = d3.arc()
-              .innerRadius(200)
-              .outerRadius(r)
+  arc = d3.arc()
+          .innerRadius(200)
+          .outerRadius(r)
 
-  var pie = d3.pie()
-            .padAngle(.01)
-            .value(function(d) { return data[d] });
+  pie = d3.pie()
+          .padAngle(.01)
+          .value(function(d) { return data[d] });
 
   // bind data and append a group for each segment
   var arcs = group.selectAll("arc")
               .data(pie(statNames))
               .enter()
                 .append("g")
-                .attr("class","arc");
+                .attr("class","arc")
+                .on("mouseover", function(d) {
+                   d3.select(this)
+                        .style("cursor", "pointer")
+                        .attr("class", "losssel")
+                        myTool
+                          .transition()
+                          .duration(300)
+                          .style("opacity", "1")
+                          .style("display", "block")
+                })
 
-  // draw around arcs
+                // keep the tooltip above the mouse when mouse is on bar
+                .on("mousemove", function(d) {
+                   d3.select(this)
+                   myTool
+                     .html("<div id='thumbnail'><span>" + d.value + "</div>")
+                     .style("left", (d3.event.pageX - 60) + "px")
+                     .style("top", (d3.event.pageY - 40) + "px")
+                })
+
+                // remove tooltip and restore colour
+                .on("mouseout", function(d, i) {
+                   d3.select(this)
+                     .style("cursor", "normal")
+                     .attr("class", "loss")
+                     myTool
+                       .transition()
+                       .duration(300)
+                       .style("opacity", "0")
+                       .style("display", "none")
+                })
+
+  // draw arcs
   arcs.append("path")
         .attr("d", arc)
         .attr("fill", function(d, i) {return color[i]})
-        .attr("stroke", "black")
-        .attr("class", "path");
+        .attr("stroke", "black");
 
   // label each donut segment
   arcs.append("text")
@@ -345,30 +376,15 @@ function updatePie(userInput) {
       color = ["red","blue","orange","green"];
       statNames = Object.keys(data)
 
-  var arc = d3.arc()
-              .innerRadius(200)
-              .outerRadius(r)
+  pie = d3.pie()
+          .padAngle(.01)
+          .value(function(d) { return data[d] });
 
-  var pie = d3.pie()
-              .padAngle(.01)
-              .value(function(d) { return data[d] });
-
-  var group = svg2.selectAll(".group")
-
-
-  var arcs = group.selectAll(".arc")
-                  .data(pie(statNames))
-                  .enter()
-                  .selectAll("g")
-
-  // draw around arcs
-  arcs.selectAll(".path")
-        .transition()
-        .duration(300)
-        .attr("d", arc)
-        .attr("fill", function(d, i) {return color[i]})
-        .attr("stroke", "black")
-        .attr("class", "path");
+  // rescale segments
+  group.selectAll("path")
+               .data(pie(statNames))
+               .transition()
+               .attr("d", arc)
 
   // label each donut segment
   arcs.selectAll(".label")
