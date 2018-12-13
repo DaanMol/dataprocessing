@@ -18,6 +18,10 @@ d3.select("body").append("h2").text("Daan Molleman - 11275820")
 d3.select("body").append("p").text("this stacked bar chart shows the amount of \
                                     wins and losses in the world series for each\
                                     MLB team from 1903 to 2017")
+d3.select("body").append("p").text("The donut chart below shows the batting \
+                                    statistics of the selected team. The Boston\
+                                    Red Sox are shown first since they were the\
+                                    victors of the first and the last World Series")
 d3.select("body").append("a").text("Sources: data.world, ")
                              .attr("href", "https://data.world/throwback-thurs/throwback-thursday-week-32-the-world-series")
                  .append("a").text("ESPN.com")
@@ -66,6 +70,7 @@ window.onload = function() {
       drawPie("Boston_Redsox")
       drawLogo()
       drawLegend(2)
+      drawTip()
   })
 }
 
@@ -261,7 +266,7 @@ function drawLegend(nr) {
 
     // create legend scale for pie chart
     var ordinal = d3.scaleOrdinal()
-    .domain(["Hits", "2nd base", "3rd base", "Homerun"])
+    .domain(["Hits", "Doubles", "Tiples", "Homeruns"])
     .range(["red","blue","orange","green"]);
 
     svg2.append("g")
@@ -280,8 +285,6 @@ function drawLegend(nr) {
     // draw the legend
     svg2.select(".legendOrdinal")
     .call(legendOrdinal);
-
-
   }
 }
 
@@ -353,6 +356,10 @@ function drawPie(userInput) {
                        .style("opacity", "0")
                        .style("display", "none")
                 })
+                .on("click", function(d) {
+                  tip = d.data
+                  updateTip(tip)
+                })
 
   // draw arcs
   arcs.append("path")
@@ -376,6 +383,16 @@ function drawLogo() {
                 .attr("y", "300")
                 .attr("width", "200")
                 .attr("height", "200");
+}
+
+function drawTip() {
+  wiki = svg2.append("text")
+             .attr("x", 715)
+             .attr("y", 250)
+             .attr("id", "wikitip")
+             .text("Click on a segment for more information")
+             .style("font-size", "12px")
+             .style("font-family", "Lucida Grande")
 }
 
 function updatePie(userInput) {
@@ -412,4 +429,62 @@ function updatePie(userInput) {
   //       .duration(300)
   //       .attr("transform",function(d) {return "translate(" + arc.centroid(d) + ")";})
   //       .text(function(d) { return d.data} );
+}
+
+function updateTip(tip) {
+  console.log(tip)
+  svg2.selectAll("#wikitip")
+      .remove()
+  svg2.selectAll("#wikitip")
+      .data(getTip(tip).split("\n"))
+      .enter()
+      .append("text")
+      .attr("x", 715)
+      .attr("y", function(d, i) { return 250 + (i * 20);})
+      .text(function(d) {
+        console.log(d)
+        return d;
+      })
+      .style("font-size", "12px")
+      .attr("id", "wikitip")
+}
+
+function getTip(tip) {
+  console.log(tip)
+  if (tip == "hits") {
+    console.log("its a hit")
+    return "In baseball statistics, a hit (denoted by H),\n \
+            also called a base hit, is credited to a batter\n \
+            when the batter safely reaches first base after\n \
+            hitting the ball into fair territory, without\n \
+            the benefit of an error or a fielder's choice."
+  } else if (tip == "Doubles") {
+    return "In baseball, a double is the act of a batter\n \
+            striking the pitched ball and safely reaching\n \
+            second base without being called out by the\n \
+            umpire, without the benefit of a fielder's\n \
+            misplay or another runner being put out on\n \
+            a fielder's choice."
+  } else if (tip == "Triples") {
+    return "In baseball, a triple is the act of a batter\n \
+            striking the pitched ball and safely reaching\n \
+            third base without being called out by the\n \
+            umpire, without the benefit of a fielder's\n \
+            misplay or another runner being put out on\n \
+            a fielder's choice."
+  } else if (tip == "Homeruns") {
+    return "In baseball, a home run is scored when the\n \
+            ball is hit in such a way that the batter is\n \
+            able to circle the bases and reach home safely\n \
+            in one play without any errors being committed\n \
+            by the defensive team in the process. In modern\n \
+            baseball, the feat is typically achieved by\n \
+            hitting the ball over the outfield fence\n \
+            between the foul poles (or making contact with\n \
+            either foul pole) without first touching the\n \
+            ground,[1] resulting in an automatic home run.\n \
+            There is also the inside-the-park home run\n \
+            where the batter reaches home safely while\n \
+            the baseball is in play on the field."
+  }
 }
