@@ -56,7 +56,7 @@ var svg2 = d3.selectAll("body")
 
 window.onload = function() {
 
-  // request api
+  // render the stacked bar chart
   d3.json(wsh).then(function(data) {
       window.majorleague = data
       createScales(majorleague)
@@ -65,6 +65,7 @@ window.onload = function() {
       drawLegend(1)
   })
 
+  // draw initial donut chart
   d3.json(laststats).then(function(data) {
       window.laststats = data
       drawPie("Boston_Redsox")
@@ -206,18 +207,18 @@ function drawRect(teams) {
 function drawScales() {
     /* draw the x and y scale */
 
-     svg.selectAll("label")
-        .data(majorleague)
-        .enter()
-        .append("text")
-        .text(function(d) {
-          return d["team"].substring(0,3);
-        })
-        .attr("x", function(d, i) {
-          return xScale(i);
-        })
-        .attr("y", h)
-        .attr("class", "label");
+    svg.selectAll("label")
+       .data(majorleague)
+       .enter()
+       .append("text")
+       .text(function(d) {
+         return d["team"].substring(0,3);
+       })
+       .attr("x", function(d, i) {
+         return xScale(i);
+       })
+       .attr("y", h)
+       .attr("class", "label");
 
     // call y-axis ticks
     svg.append("g")
@@ -277,14 +278,11 @@ function drawLegend(nr) {
 
     .shape("path", d3.symbol().type(d3.symbolCircle).size(150)())
     .shapePadding(10)
-
-    //use cellFilter to hide the "e" cell
-    .cellFilter(function(d){ return d.label !== "e" })
     .scale(ordinal);
 
     // draw the legend
     svg2.select(".legendOrdinal")
-    .call(legendOrdinal);
+        .call(legendOrdinal);
   }
 }
 
@@ -366,12 +364,6 @@ function drawPie(userInput) {
         .attr("d", arc)
         .attr("fill", function(d, i) {return color[i]})
         .attr("stroke", "black");
-
-  // // label each donut segment
-  // arcs.append("text")
-  //       .attr("transform",function(d) {return "translate(" + arc.centroid(d) + ")";})
-  //       .attr("class", "label")
-  //       .text(function(d) { return d.data} );
 }
 
 function drawLogo() {
@@ -386,6 +378,7 @@ function drawLogo() {
 }
 
 function drawTip() {
+  /* draw the initial tip */
   wiki = svg2.append("text")
              .attr("x", 715)
              .attr("y", 250)
@@ -398,13 +391,16 @@ function drawTip() {
 function updatePie(userInput) {
   /* update the pie graph according to user selection */
 
+  // display the selected team logo
   svg2.selectAll("image")
       .attr("xlink:href", "http://www.capsinfo.com/images/MLB_Team_Logos/" + userInput + ".png")
 
+  // update the title
   svg2.selectAll(".pieTitle")
       .text(userInput.replace("_", " "))
       .style("font-size", "25px")
 
+  // declare data
   var data = laststats[userInput],
       r = 300,
       color = ["red","blue","orange","green"];
@@ -420,21 +416,19 @@ function updatePie(userInput) {
                .transition()
                .attr("d", arc)
 
+  // update the numberd bound to the arcs
   group.selectAll(".arc")
               .data(pie(statNames))
-
-  // // label each donut segment
-  // arcs.selectAll(".label")
-  //       .transition()
-  //       .duration(300)
-  //       .attr("transform",function(d) {return "translate(" + arc.centroid(d) + ")";})
-  //       .text(function(d) { return d.data} );
 }
 
 function updateTip(tip) {
-  console.log(tip)
+  /* Update the tip displayed when a batting stat is clicked */
+
+  // remove old tip
   svg2.selectAll("#wikitip")
       .remove()
+
+  // dislpay new tip
   svg2.selectAll("#wikitip")
       .data(getTip(tip).split("\n"))
       .enter()
@@ -442,7 +436,6 @@ function updateTip(tip) {
       .attr("x", 715)
       .attr("y", function(d, i) { return 250 + (i * 20);})
       .text(function(d) {
-        console.log(d)
         return d;
       })
       .style("font-size", "12px")
@@ -450,7 +443,8 @@ function updateTip(tip) {
 }
 
 function getTip(tip) {
-  console.log(tip)
+  /* Get the tip for each batting stat. Source: wikipedia */
+
   if (tip == "hits") {
     console.log("its a hit")
     return "In baseball statistics, a hit (denoted by H),\n \
