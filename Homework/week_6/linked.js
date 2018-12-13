@@ -18,8 +18,10 @@ d3.select("body").append("h2").text("Daan Molleman - 11275820")
 d3.select("body").append("p").text("this stacked bar chart shows the amount of \
                                     wins and losses in the world series for each\
                                     MLB team from 1903 to 2017")
-d3.select("body").append("a").text("Source: data.world")
+d3.select("body").append("a").text("Sources: data.world, ")
                              .attr("href", "https://data.world/throwback-thurs/throwback-thursday-week-32-the-world-series")
+                 .append("a").text("ESPN.com")
+                             .attr("href", "http://www.espn.com/mlb/stats/team/_/stat/batting")
 d3.select('body').append("h4")
 
 // define width and height
@@ -75,19 +77,6 @@ function createScales(set1) {
   window.yScale = d3.scaleLinear()
                     .domain([0, 40])
                     .range([h-margins.lower, margins.upper]);
-}
-
-function calc(set, stat) {
-    /* calculate a min or max from an array of objects */
-    stats = [];
-    for (i in set) {
-      stats.push(set[i][Object.keys(set[i])])
-    }
-    if(stat === "max") {
-        return Math.max.apply(null, stats)
-    } else {
-        return Math.min.apply(null, stats)
-    }
 }
 
 function drawRect(teams) {
@@ -317,6 +306,7 @@ function drawPie(userInput) {
       .attr("transform", "translate(100,100)")
       .attr("class", "pieTitle")
       .text(userInput.replace("_", " "))
+      .style("font-size", "25px")
 
   arc = d3.arc()
           .innerRadius(200)
@@ -370,11 +360,11 @@ function drawPie(userInput) {
         .attr("fill", function(d, i) {return color[i]})
         .attr("stroke", "black");
 
-  // label each donut segment
-  arcs.append("text")
-        .attr("transform",function(d) {return "translate(" + arc.centroid(d) + ")";})
-        .attr("class", "label")
-        .text(function(d) { return d.data} );
+  // // label each donut segment
+  // arcs.append("text")
+  //       .attr("transform",function(d) {return "translate(" + arc.centroid(d) + ")";})
+  //       .attr("class", "label")
+  //       .text(function(d) { return d.data} );
 }
 
 function drawLogo() {
@@ -396,6 +386,7 @@ function updatePie(userInput) {
 
   svg2.selectAll(".pieTitle")
       .text(userInput.replace("_", " "))
+      .style("font-size", "25px")
 
   var data = laststats[userInput],
       r = 300,
@@ -412,10 +403,13 @@ function updatePie(userInput) {
                .transition()
                .attr("d", arc)
 
-  // label each donut segment
-  arcs.selectAll(".label")
-        .transition()
-        .duration(300)
-        .attr("transform",function(d) {return "translate(" + arc.centroid(d) + ")";})
-        .text(function(d) { return d.data} );
+  group.selectAll(".arc")
+              .data(pie(statNames))
+
+  // // label each donut segment
+  // arcs.selectAll(".label")
+  //       .transition()
+  //       .duration(300)
+  //       .attr("transform",function(d) {return "translate(" + arc.centroid(d) + ")";})
+  //       .text(function(d) { return d.data} );
 }
