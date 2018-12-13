@@ -267,7 +267,7 @@ function drawLegend(nr) {
 
     // create legend scale for pie chart
     var ordinal = d3.scaleOrdinal()
-    .domain(["Hits", "Doubles", "Tiples", "Homeruns"])
+    .domain(["Hits", "Doubles", "Triples", "Homeruns"])
     .range(["red","blue","orange","green"]);
 
     svg2.append("g")
