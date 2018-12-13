@@ -1,182 +1,182 @@
 {
     "Boston_Redsox": {
         "hits": "1509",
-        "2nd": "355",
-        "3rd": "31",
-        "homeruns": "208"
+        "Doubles": "355",
+        "Triples": "31",
+        "Homeruns": "208"
     },
     "NewYork_Yankees": {
         "hits": "1374",
-        "2nd": "269",
-        "3rd": "23",
-        "homeruns": "267"
+        "Doubles": "269",
+        "Triples": "23",
+        "Homeruns": "267"
     },
     "Cleveland_Indians": {
         "hits": "1447",
-        "2nd": "297",
-        "3rd": "19",
-        "homeruns": "216"
+        "Doubles": "297",
+        "Triples": "19",
+        "Homeruns": "216"
     },
     "Oakland_Athletics": {
         "hits": "1407",
-        "2nd": "322",
-        "3rd": "20",
-        "homeruns": "227"
+        "Doubles": "322",
+        "Triples": "20",
+        "Homeruns": "227"
     },
     "LosAngeles_Dodgers": {
         "hits": "1394",
-        "2nd": "296",
-        "3rd": "33",
-        "homeruns": "235"
+        "Doubles": "296",
+        "Triples": "33",
+        "Homeruns": "235"
     },
     "Houston_Astros": {
         "hits": "1390",
-        "2nd": "278",
-        "3rd": "18",
-        "homeruns": "205"
+        "Doubles": "278",
+        "Triples": "18",
+        "Homeruns": "205"
     },
     "Colorado_Rockies": {
         "hits": "1418",
-        "2nd": "280",
-        "3rd": "42",
-        "homeruns": "210"
+        "Doubles": "280",
+        "Triples": "42",
+        "Homeruns": "210"
     },
     "Washington_Nationals": {
         "hits": "1402",
-        "2nd": "284",
-        "3rd": "25",
-        "homeruns": "191"
+        "Doubles": "284",
+        "Triples": "25",
+        "Homeruns": "191"
     },
     "Chicago_Cubs": {
         "hits": "1453",
-        "2nd": "286",
-        "3rd": "34",
-        "homeruns": "167"
+        "Doubles": "286",
+        "Triples": "34",
+        "Homeruns": "167"
     },
     "Atlanta_Braves": {
         "hits": "1433",
-        "2nd": "314",
-        "3rd": "29",
-        "homeruns": "175"
+        "Doubles": "314",
+        "Triples": "29",
+        "Homeruns": "175"
     },
     "StLouis_Cardinals": {
         "hits": "1369",
-        "2nd": "248",
-        "3rd": "9",
-        "homeruns": "205"
+        "Doubles": "248",
+        "Triples": "9",
+        "Homeruns": "205"
     },
     "Milwaukee_Brewers": {
         "hits": "1398",
-        "2nd": "252",
-        "3rd": "24",
-        "homeruns": "218"
+        "Doubles": "252",
+        "Triples": "24",
+        "Homeruns": "218"
     },
     "Minnesota_Twins": {
         "hits": "1379",
-        "2nd": "317",
-        "3rd": "22",
-        "homeruns": "166"
+        "Doubles": "317",
+        "Triples": "22",
+        "Homeruns": "166"
     },
     "Texas_Rangers": {
         "hits": "1308",
-        "2nd": "266",
-        "3rd": "24",
-        "homeruns": "194"
+        "Doubles": "266",
+        "Triples": "24",
+        "Homeruns": "194"
     },
     "LosAngeles_Angels": {
         "hits": "1323",
-        "2nd": "249",
-        "3rd": "23",
-        "homeruns": "214"
+        "Doubles": "249",
+        "Triples": "23",
+        "Homeruns": "214"
     },
     "TampaBay_Rays": {
         "hits": "1415",
-        "2nd": "274",
-        "3rd": "43",
-        "homeruns": "150"
+        "Doubles": "274",
+        "Triples": "43",
+        "Homeruns": "150"
     },
     "Toronto_Blue_Jays": {
         "hits": "1336",
-        "2nd": "320",
-        "3rd": "16",
-        "homeruns": "217"
+        "Doubles": "320",
+        "Triples": "16",
+        "Homeruns": "217"
     },
     "Cincinnati_Reds": {
         "hits": "1404",
-        "2nd": "251",
-        "3rd": "25",
-        "homeruns": "172"
+        "Doubles": "251",
+        "Triples": "25",
+        "Homeruns": "172"
     },
     "Arizona_Diamondbacks": {
         "hits": "1283",
-        "2nd": "259",
-        "3rd": "50",
-        "homeruns": "176"
+        "Doubles": "259",
+        "Triples": "50",
+        "Homeruns": "176"
     },
     "Pittsburgh_Pirates": {
         "hits": "1381",
-        "2nd": "290",
-        "3rd": "38",
-        "homeruns": "157"
+        "Doubles": "290",
+        "Triples": "38",
+        "Homeruns": "157"
     },
     "Seattle_Mariners": {
         "hits": "1402",
-        "2nd": "256",
-        "3rd": "32",
-        "homeruns": "176"
+        "Doubles": "256",
+        "Triples": "32",
+        "Homeruns": "176"
     },
     "Philadelphia_Phillies": {
         "hits": "1270",
-        "2nd": "241",
-        "3rd": "30",
-        "homeruns": "186"
+        "Doubles": "241",
+        "Triples": "30",
+        "Homeruns": "186"
     },
     "NewYork_Mets": {
         "hits": "1282",
-        "2nd": "265",
-        "3rd": "34",
-        "homeruns": "170"
+        "Doubles": "265",
+        "Triples": "34",
+        "Homeruns": "170"
     },
     "Chicago_White_Sox": {
         "hits": "1332",
-        "2nd": "259",
-        "3rd": "40",
-        "homeruns": "182"
+        "Doubles": "259",
+        "Triples": "40",
+        "Homeruns": "182"
     },
     "KansasCity_Royals": {
         "hits": "1350",
-        "2nd": "283",
-        "3rd": "29",
-        "homeruns": "155"
+        "Doubles": "283",
+        "Triples": "29",
+        "Homeruns": "155"
     },
     "Detroit_Tigers": {
         "hits": "1326",
-        "2nd": "284",
-        "3rd": "35",
-        "homeruns": "135"
+        "Doubles": "284",
+        "Triples": "35",
+        "Homeruns": "135"
     },
     "Baltimore_Orioles": {
         "hits": "1317",
-        "2nd": "242",
-        "3rd": "15",
-        "homeruns": "188"
+        "Doubles": "242",
+        "Triples": "15",
+        "Homeruns": "188"
     },
     "SanDiego_Padres": {
         "hits": "1289",
-        "2nd": "250",
-        "3rd": "30",
-        "homeruns": "162"
+        "Doubles": "250",
+        "Triples": "30",
+        "Homeruns": "162"
     },
     "SanFrancisco_Giants": {
         "hits": "1324",
-        "2nd": "255",
-        "3rd": "30",
-        "homeruns": "133"
+        "Doubles": "255",
+        "Triples": "30",
+        "Homeruns": "133"
     },
     "Miami_Marlins": {
         "hits": "1303",
-        "2nd": "222",
-        "3rd": "24",
-        "homeruns": "128"
+        "Doubles": "222",
+        "Triples": "24",
+        "Homeruns": "128"
     }
 }

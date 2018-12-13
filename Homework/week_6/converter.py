@@ -61,8 +61,8 @@ def parser2(reader):
 
     teams = {}
     for row in reader:
-        teams[row["TEAM"]] = {"hits": row["H"], "2nd": row["2B"],
-        "3rd": row["3B"], "homeruns": row["HR"]}
+        teams[row["TEAM"]] = {"hits": row["H"], "Doubles": row["2B"],
+        "Triples": row["3B"], "Homeruns": row["HR"]}
 
     return teams
 
