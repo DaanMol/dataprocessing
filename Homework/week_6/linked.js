@@ -451,21 +451,22 @@ function getTip(tip) {
             also called a base hit, is credited to a batter\n \
             when the batter safely reaches first base after\n \
             hitting the ball into fair territory, without\n \
-            the benefit of an error or a fielder's choice."
+            the benefit of an error or a fielder's choice.\n \
+            Source: Wikipedia"
   } else if (tip == "Doubles") {
     return "In baseball, a double is the act of a batter\n \
             striking the pitched ball and safely reaching\n \
             second base without being called out by the\n \
             umpire, without the benefit of a fielder's\n \
             misplay or another runner being put out on\n \
-            a fielder's choice."
+            a fielder's choice. Source: Wikipedia"
   } else if (tip == "Triples") {
     return "In baseball, a triple is the act of a batter\n \
             striking the pitched ball and safely reaching\n \
             third base without being called out by the\n \
             umpire, without the benefit of a fielder's\n \
             misplay or another runner being put out on\n \
-            a fielder's choice."
+            a fielder's choice. Source: Wikipedia"
   } else if (tip == "Homeruns") {
     return "In baseball, a home run is scored when the\n \
             ball is hit in such a way that the batter is\n \
@@ -479,6 +480,7 @@ function getTip(tip) {
             ground,[1] resulting in an automatic home run.\n \
             There is also the inside-the-park home run\n \
             where the batter reaches home safely while\n \
-            the baseball is in play on the field."
+            the baseball is in play on the field.\n \
+            Source: Wikipedia"
   }
 }
