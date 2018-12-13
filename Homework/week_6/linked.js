@@ -19,9 +19,11 @@ d3.select("body").append("p").text("this stacked bar chart shows the amount of \
                                     wins and losses in the world series for each\
                                     MLB team from 1903 to 2017")
 d3.select("body").append("p").text("The donut chart below shows the batting \
-                                    statistics of the selected team. The Boston\
-                                    Red Sox are shown first since they were the\
-                                    victors of the first and the last World Series")
+                                    statistics of the selected team. The stats\
+                                    are from the 2018 season")
+d3.select("body").append("p").text("The Boston Red Sox are shown first since \
+                                    they were the victors of the first and the\
+                                    last World Series")
 d3.select("body").append("a").text("Sources: data.world, ")
                              .attr("href", "https://data.world/throwback-thurs/throwback-thursday-week-32-the-world-series")
                  .append("a").text("ESPN.com")
