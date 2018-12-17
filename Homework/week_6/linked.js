@@ -18,7 +18,7 @@ d3.select("body").append("h1").text("Linked views")
 d3.select("body").append("h2").text("Daan Molleman - 11275820")
 d3.select("body").append("p").text("This stacked bar chart shows the amount of \
                                     wins and losses in the world series for each\
-                                    MLB team from 1903 to 2017")
+                                    Major League Baseball team from 1903 to 2017")
 d3.select("body").append("p").text("The donut chart below shows the batting \
                                     statistics of the selected team. The stats\
                                     are from the 2018 season")
@@ -29,6 +29,7 @@ d3.select("body").append("a").text("Sources: data.world, ")
                              .attr("href", "https://data.world/throwback-thurs/throwback-thursday-week-32-the-world-series")
                  .append("a").text("ESPN.com")
                              .attr("href", "http://www.espn.com/mlb/stats/team/_/stat/batting")
+d3.select("body").append("p").text("The wins and losses for each MLB team from 1903 to 2017")
 d3.select('body').append("h4")
 
 // define width and height
