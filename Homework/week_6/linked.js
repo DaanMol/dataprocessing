@@ -14,8 +14,9 @@ laststats = "data2.json"
 
 d3.select("head").append("title").text("Linked views - Daan Molleman")
 d3.select("body").append("h1").text("Linked views")
+                              .attr("class", "head")
 d3.select("body").append("h2").text("Daan Molleman - 11275820")
-d3.select("body").append("p").text("this stacked bar chart shows the amount of \
+d3.select("body").append("p").text("This stacked bar chart shows the amount of \
                                     wins and losses in the world series for each\
                                     MLB team from 1903 to 2017")
 d3.select("body").append("p").text("The donut chart below shows the batting \

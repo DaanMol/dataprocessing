@@ -12,20 +12,13 @@ Linked views */
     font-style: normal;
 }
 
-@font-face {
-    font-family: 'MLB-Blue-Jays-Modern';
-    src:url('bluejays/MLB-Blue-Jays-Modern.ttf.woff') format('woff'),
-        url('bluejays/MLB-Blue-Jays-Modern.ttf.svg#MLB-Blue-Jays-Modern') format('svg'),
-        url('bluejays/MLB-Blue-Jays-Modern.ttf.eot'),
-        url('bluejays/MLB-Blue-Jays-Modern.ttf.eot?#iefix') format('embedded-opentype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-
 html *
 {
-   font-family: "MLB-Blue-Jays-Modern" !important;
+   font-family: "Trebuchet MS" !important;
+}
+
+h1.head {
+    font-family: "MLB-Block" !important;
 }
 
 rect.bar {
@@ -57,11 +50,6 @@ rect.losssel {
     fill: none;
     stroke: black;
     shape-rendering: crispEdges;
-}
-
-.axis text {
-    font-family: "MLB-Block";
-    font-size: 11px;
 }
 
 text.label {
